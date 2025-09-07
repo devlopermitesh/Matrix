@@ -10,12 +10,7 @@ module.exports = {
         ios: null,
       },
     },
-    'react-native-sqlite-storage': {
-      platforms: {
-        android: null,
-        ios: null,
-      },
-    },
+
   },
   assets: ["./src/asset"],
   getTransformModulePath() {

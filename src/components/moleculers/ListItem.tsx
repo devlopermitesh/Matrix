@@ -1,18 +1,44 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import Icon from "../atoms/Icon";
-import { Categories, Item } from "../../data/constant";
+import { Item } from "../../data/constant";
+import Day from "../atoms/Day";
+import { useTodos } from "../../state/todos";
+import { Pressable } from "react-native";
+import { navigate } from "../../navigation/Navigationutils";
 
 interface ListItemProps {
-  item:Item
+  item: Item 
 }
 
-const ListItem: React.FC<ListItemProps> = ({item:{ name, category, iscompleted }}) => {
+const ListItem: React.FC<ListItemProps> = ({
+  item: {id, name, iscompleted, description, dueDate,category },
+}) => {
+  const {markStatusChange} = useTodos()
+  
+  const handlePress = async() => {
+    await markStatusChange(id,!iscompleted)
+  };
+
   return (
-    <View style={styles.container}>
+    <Pressable onPress={()=>{
+      try {
+       
+    navigate("TaskDetail",{
+       id, name, iscompleted, description, dueDate,category
+     }) 
+      } catch (error) {
+       Alert.alert("Error") 
+      }
+    }} style={styles.container}>
       {/* Checkbox Button */}
-      <TouchableOpacity style={styles.checkButton}>
+      <TouchableOpacity 
+        style={styles.checkButton}   
+        onPress={handlePress}
+        activeOpacity={0.7} // Add visual feedback
+        hitSlop={{top: 10, bottom: 10, left: 10, right: 10}} // Increase touch area
+      >
         <Icon
           name={iscompleted ? "checkmark-circle" : "ellipse-outline"}
           iconType="ionicons"
@@ -31,9 +57,16 @@ const ListItem: React.FC<ListItemProps> = ({item:{ name, category, iscompleted }
         >
           {name}
         </Text>
-        <Text style={styles.category}>{category}</Text>
+
+        {/* Description + Date Badge in one row */}
+        <View style={styles.bottomRow}>
+          <Text numberOfLines={1} style={styles.description}>
+            {description}
+          </Text>
+          <Day date={dueDate.toISOString()} />
+        </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -60,6 +93,8 @@ const styles = StyleSheet.create({
   },
   checkButton: {
     marginRight: RFValue(12),
+    padding: RFValue(5), 
+    borderRadius: RFValue(5), 
   },
   textContainer: {
     flex: 1,
@@ -69,9 +104,14 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#000",
   },
-  category: {
-    fontSize: RFValue(12),
-    color: "#666",
+  bottomRow: {
+    flexDirection: "row",
+    alignItems: "center",
     marginTop: RFValue(2),
+  },
+  description: {
+    fontSize: RFValue(10),
+    color: "#666",
+    flex: 1,
   },
 });

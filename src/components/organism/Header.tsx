@@ -1,6 +1,7 @@
 import { Image, StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import Icon from "../atoms/Icon";
 import { RFValue } from "react-native-responsive-fontsize";
+import { navigate } from "../../navigation/Navigationutils";
 
 const Header = () => {
   return (
@@ -14,11 +15,11 @@ const Header = () => {
             width: RFValue(25),
           }}
         />
-        <Text style={styles.text}>FocuMatrix</Text>
+        <Text style={styles.text}>FocusMatrix</Text>
       </View>
 
       {/* Right Section */}
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity onPress={() =>navigate("Profile")}>
         <Image
           source={require("../../asset/Images/settingicon.png")}
           style={styles.settingIcon}
@@ -56,12 +57,12 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: "700",
-    fontSize: RFValue(14),
+    fontSize: RFValue(18),
     color: "#000",
   },
   settingIcon: {
-    height: RFValue(20),
-    width: RFValue(20),
+    height: RFValue(26),
+    width: RFValue(26),
     resizeMode: "contain",
   },
 });

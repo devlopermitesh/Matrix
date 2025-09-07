@@ -2,11 +2,12 @@ import { PropsWithChildren, ReactNode, useContext, useEffect, useState } from "r
 import { NavigationContainer } from "@react-navigation/native";
 import AuthStack, { AuthStackParamList } from "./AuthStack";
 import AppStack, { AppStackParamList } from "./AppStack";
+import { navigationRef } from "./Navigationutils";
 export type StackScreen=AuthStackParamList & AppStackParamList
 const Routes = ():React.JSX.Element => {
 
  return (
-   <NavigationContainer>
+   <NavigationContainer ref={navigationRef}>
     {(false)?(<AuthStack/>):(<AppStack/>)}
     </NavigationContainer>
  )

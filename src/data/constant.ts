@@ -47,3 +47,36 @@ export interface Item{
     category:Categories,
     iscompleted:boolean
 }  
+export type IconThemeType='bell' | 'info' | 'theme'
+export type ButtonThemeType="Normal"|"theme"|"checkOut"
+
+export const AppranceCollectionData:{
+    id:number,
+    title:string,
+    name:string,
+    iconType:IconThemeType,
+    buttonType:ButtonThemeType
+}[]=[
+    {
+        id:1,
+        title:"Apprerance",
+        name:"Theme",
+        iconType:"theme",
+        buttonType:"theme"
+    },
+     {
+        id:2,
+        title:"Notification",
+        name:"Reminder",
+        iconType:"bell",
+        buttonType:"Normal"
+    },
+     {
+        id:3,
+        title:"About",
+        name:` Matrix \n version:0.0.1`,
+        iconType:"info",
+        buttonType:"checkOut"
+    },
+
+]

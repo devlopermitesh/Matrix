@@ -34,11 +34,13 @@ interface TaskFormData {
   dueDate?: string;
 }
 
-const AddTaskModal: FC<{ 
+const TaskModal: FC<{ 
   visible: boolean; 
+  model_title:string;
   onClose: () => void; 
+  predata?:Item
   onSave: (data: TaskFormData) => void;
-}> = ({ visible, onClose, onSave }) => {
+}> = ({ visible, onClose, onSave,model_title,predata }) => {
   const [activeCategory,setActiveCategory]=useState(Categories.urgentImportant)
   const [showCalendar, setShowCalendar] = useState(false);
 
@@ -49,10 +51,10 @@ const AddTaskModal: FC<{
     formState: { errors, isValid },
   } = useForm<TaskFormData>({
     defaultValues: {
-      title: '',
-      description: '',
-      quadrant: Categories.urgentImportant,
-      dueDate: '',
+      title: predata?.name ??'',
+      description: predata?.description??'',
+      quadrant: predata?.category??Categories.urgentImportant,
+      dueDate: predata?.dueDate.toString() ?? '',
     },
   });
 
@@ -97,7 +99,7 @@ const AddTaskModal: FC<{
                 </View>
 
                 {/* Title */}
-                <Text style={styles.title}>Add Task</Text>
+                <Text style={styles.title}>{model_title}</Text>
 
                 {/* Task Title Input */}
                 <View style={styles.inputContainer}>
@@ -451,4 +453,4 @@ dateInputContainer: {
 
 });
 
-export default AddTaskModal;
+export default TaskModal;
