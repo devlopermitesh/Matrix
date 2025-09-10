@@ -2,7 +2,7 @@ import { Image, StyleSheet, TouchableOpacity, ViewStyle } from "react-native";
 import Icon from "./Icon";
 const PlusButton = ({style,onPress}:{style:ViewStyle,onPress:()=>void}) => {
   return (
-    <TouchableOpacity style={[styles.buttonContainer,style]} onPress={onPress}>
+    <TouchableOpacity testID="plus-button" style={[styles.buttonContainer,style]} onPress={onPress}>
       <Image source={require("../../asset/Images/plusIcon.png")} style={{width:"100%",height:'100%',objectFit:"cover"}}/>
     </TouchableOpacity>
   );

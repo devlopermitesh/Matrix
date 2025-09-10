@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlusButton Component applies custom style when passed 1`] = `
+{
+  "alignItems": "center",
+  "backgroundColor": "red",
+  "borderColor": "#fff",
+  "borderRadius": 50,
+  "borderWidth": 1,
+  "elevation": 5,
+  "height": 60,
+  "justifyContent": "center",
+  "opacity": 1,
+  "shadowColor": "#000",
+  "shadowOffset": {
+    "height": 2,
+    "width": 0,
+  },
+  "shadowOpacity": 0.3,
+  "shadowRadius": 4,
+  "width": 60,
+}
+`;

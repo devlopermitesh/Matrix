@@ -15,13 +15,13 @@ const AppranceCollection = () => {
 const getButton=(ButtonType:ButtonThemeType)=>{
     switch (ButtonType) {
         case "theme":
-            return <DarkLightToggle isDark={isDark} onPress={()=>setisDark((prev)=>!prev)}/>
+            return <DarkLightToggle testId='dark-light-toggle'  isDark={isDark} onPress={()=>setisDark((prev)=>!prev)}/>
         case "Normal":
-           return <SmoothToggle size='small' isOn={isOn} onPress={()=>setIsOn((pre)=>!pre)}/>
+           return <SmoothToggle testId='normal-toggle' size='small' isOn={isOn} onPress={()=>setIsOn((pre)=>!pre)}/>
         case "checkOut":
             return (
-                <TouchableOpacity onPress={()=>{}}>
-                <Icon size={RFValue(16)} color='#000000' name='right' iconType='ant-design'/>
+                <TouchableOpacity testID='icon-right' onPress={()=>{}}>
+                <Icon  size={RFValue(16)} color='#000000' name='right' iconType='ant-design'/>
                 </TouchableOpacity>
             )
         default:
@@ -34,7 +34,7 @@ const getButton=(ButtonType:ButtonThemeType)=>{
         {
             AppranceCollectionData.map((item)=>{
                 return(
-         <ApprenceItem key={item.id} title={item.title}>
+         <ApprenceItem testID='button-container-settings'  key={item.id} title={item.title}>
           <Icontitle name={item.name} Icontype={item.iconType}/>
           {
             getButton(item.buttonType)

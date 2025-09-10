@@ -24,19 +24,19 @@ const Icon: React.FC<IconProps> = ({
 }) => {
   switch (iconType) {
     case "material":
-      return <MaterialIcon style={style} name={name} size={size} color={color} />;
+      return <MaterialIcon accessibilityLabel="MaterialIcon" style={style} name={name} size={size} color={color} />;
     case "material-community":
-      return <MaterialCommunityIcons style={style} name={name} size={size} color={color} />;
+      return <MaterialCommunityIcons accessibilityLabel="MaterialCommunity" style={style} name={name} size={size} color={color} />;
     case "font-awesome":
-      return <FontAwesomeIcon style={style} name={name} size={size} color={color} />;
+      return <FontAwesomeIcon accessibilityLabel="FontAwesomeIcon" style={style} name={name} size={size} color={color} />;
     case "ionicons":
-      return <IoniconsIcon style={style} name={name} size={size} color={color} />;
+      return <IoniconsIcon accessibilityLabel="IoniconsIcon"  style={style} name={name} size={size} color={color} />;
     case "ant-design":
-      return <AntDesignIcon style={style} name={name} size={size} color={color} />;
+      return <AntDesignIcon  accessibilityLabel="AntDesignIcon"  style={style} name={name} size={size} color={color} />;
     case "Octicons":
-      return <Octicons style={style} name={name} size={size} color={color} />;
+      return <Octicons  accessibilityLabel="Octicons"  style={style} name={name} size={size} color={color} />;
     default:
-      return <MaterialIcon style={style} name={name} size={size} color={color} />;
+      return <MaterialIcon  accessibilityLabel="MaterialIcon"  style={style} name={name} size={size} color={color} />;
   }
 };
 

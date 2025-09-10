@@ -9,6 +9,7 @@ const Header = () => {
       {/* Left Section */}
       <View style={styles.leftSection}>
         <Image
+        testID="tick-icon" 
           source={require("../../asset/Images/tickicon.png")}
           style={{ 
             height: RFValue(25),
@@ -19,8 +20,10 @@ const Header = () => {
       </View>
 
       {/* Right Section */}
-      <TouchableOpacity onPress={() =>navigate("Profile")}>
+      <TouchableOpacity testID="settings-button" onPress={() =>navigate("Profile")}>
         <Image
+        testID="settings-icon" 
+
           source={require("../../asset/Images/settingicon.png")}
           style={styles.settingIcon}
         />

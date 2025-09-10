@@ -5,13 +5,14 @@ interface ApprenceItemProps {
   title: string;
   children: React.ReactNode;
   style?: ViewStyle;
+  testID?:string;
 }
 
-const ApprenceItem: React.FC<ApprenceItemProps> = ({ title, children, style }) => {
+const ApprenceItem: React.FC<ApprenceItemProps> = ({ title, children, style,testID }) => {
   return (
-    <View style={styles.colStyle}>
+    <View testID={testID} style={styles.colStyle}>
       <Text style={styles.title}>{title}</Text>
-      <View style={[styles.itemOption, style]}>
+      <View style={[styles.itemOption, style]} testID="item-option">
         {children}
       </View>
     </View>

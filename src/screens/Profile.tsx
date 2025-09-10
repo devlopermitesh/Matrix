@@ -17,8 +17,9 @@ const Profile = () => {
     <CustomeSafeAreaView>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => goBack()} style={styles.backButton}>
+        <TouchableOpacity accessibilityRole='button' accessible={true} onPress={() => goBack()} style={styles.backButton}>
           <Icon
+            
             name="angle-left"
             color="#333"
             size={RFValue(22)}

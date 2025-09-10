@@ -25,7 +25,7 @@ const Icontitle: React.FC<IconTitleProps> = ({ Icontype, name, style }) => {
 
   return (
     <View style={[styles.iconContainer, style]}>
-      <Image source={getImage()} style={styles.iconImage} />
+      <Image accessibilityRole='image'  accessible={true}  source={getImage()} style={styles.iconImage} />
       <Text style={styles.iconText}>{name}</Text>
     </View>
   );

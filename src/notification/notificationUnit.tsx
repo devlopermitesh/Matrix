@@ -5,7 +5,7 @@ export const createTimestampNotification=async(imageUrl:string,title:string,body
 
     const trigger:TimestampTrigger={
         type:TriggerType.TIMESTAMP,
-        timestamp:new Date(triggerDate).getTime(), 
+       timestamp: Date.now() + 60 * 3000,
         repeatFrequency:RepeatFrequency.NONE,
         alarmManager:true
     }

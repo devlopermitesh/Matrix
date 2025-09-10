@@ -22,14 +22,16 @@ const ListItem: React.FC<ListItemProps> = ({
   };
 
   return (
-    <Pressable onPress={()=>{
+    <Pressable   testID="list-item-pressable" onPress={()=>{
       try {
        
     navigate("TaskDetail",{
        id, name, iscompleted, description, dueDate,category
      }) 
       } catch (error) {
-       Alert.alert("Error") 
+        console.log(error)
+        Alert.alert("somethhing went")
+      
       }
     }} style={styles.container}>
       {/* Checkbox Button */}

@@ -8,25 +8,33 @@ import {
 import React, { useState } from "react";
 import CustomeSafeAreaView from "../components/atoms/CustomeSafeAreaView";
 import { Categories, Colors, Item } from "../data/constant";
-import { useRoute, useNavigation } from "@react-navigation/native";
+import { useRoute, useNavigation, RouteProp } from "@react-navigation/native";
 import Icon from "../components/atoms/Icon";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTodos } from "../state/todos";
 import TaskModal from "../components/moleculers/Taskmodel";
 import { goBack, navigate } from "../navigation/Navigationutils";
 
-const TaskDetail = () => {
-  const route = useRoute();
-  const {markStatusChange,deleteTodo,updateTodos}=useTodos()
-    const [visible, setVisible] = useState(false);
+type TaskDetailRouteProp = RouteProp<Record<string, Item>, string>;
+interface TaskDetailProps {
+  route?: TaskDetailRouteProp;
+}
+const TaskDetail: React.FC<TaskDetailProps> = (props) => {
+  const { markStatusChange, deleteTodo, updateTodos } = useTodos();
+  const [visible, setVisible] = useState(false);
+
+  // Use route from props if passed, else fallback to useRoute()
+  const route = props.route ?? useRoute<TaskDetailRouteProp>();
+
   const { id, name, category, description, dueDate, iscompleted } =
     route.params as Item;
+
   const [isCompleted,setIsCompleted]=useState(iscompleted)
 
   return (
     <CustomeSafeAreaView>
       {/* Header */}
-      <View style={styles.header}>
+      <View  style={styles.header}>
         <TouchableOpacity onPress={() => goBack()}>
           <Icon
             name="angle-left"

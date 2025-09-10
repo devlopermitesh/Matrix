@@ -5,6 +5,7 @@ type SmoothToggleProps = {
   isOn: boolean;
   onPress: () => void;
   size?: 'small' | 'medium' | 'large';
+  testId?:string
 };
 
 const SIZE_PRESETS = {
@@ -13,7 +14,7 @@ const SIZE_PRESETS = {
   large: { trackWidth: 80, trackHeight: 44, circle: 40, padding: 4 },
 };
 
-const SmoothToggle: React.FC<SmoothToggleProps> = ({ isOn, onPress, size = 'medium' }) => {
+const SmoothToggle: React.FC<SmoothToggleProps> = ({ isOn, onPress, size = 'medium',testId }) => {
   const animation = useRef(new Animated.Value(0)).current;
   const { trackWidth, trackHeight, circle, padding } = SIZE_PRESETS[size];
 
@@ -36,8 +37,9 @@ const SmoothToggle: React.FC<SmoothToggleProps> = ({ isOn, onPress, size = 'medi
   });
 
   return (
-    <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
+    <TouchableOpacity testID={testId} accessibilityRole='button' activeOpacity={0.8} onPress={onPress}>
       <Animated.View
+      testID={'track'}
         style={{
           width: trackWidth,
           height: trackHeight,
@@ -48,6 +50,7 @@ const SmoothToggle: React.FC<SmoothToggleProps> = ({ isOn, onPress, size = 'medi
         }}
       >
         <Animated.View
+
           style={{
             width: circle,
             height: circle,

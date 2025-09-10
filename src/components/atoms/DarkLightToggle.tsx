@@ -3,21 +3,24 @@ import { View, TouchableOpacity, Image, StyleSheet, Animated } from 'react-nativ
 interface DarkLightToggleProps{
     isDark:boolean,
     onPress:()=>void,
+    testId?:string,
 }
-const DarkLightToggle:React.FC<DarkLightToggleProps>= ({isDark,onPress}) => {
+const DarkLightToggle:React.FC<DarkLightToggleProps>= ({isDark,onPress,testId}) => {
 
   return (
-    <TouchableOpacity style={[styles.container,]} onPress={onPress}>
+    <TouchableOpacity testID={testId} accessibilityRole="button" style={[styles.container,]} onPress={onPress}>
         
       <View style={styles.iconWrapper}>
         <Image
+  accessibilityLabel="Sun Icon"
           source={require('../../asset/Images/sun.png')} // Sun image
           style={[styles.icon, !isDark && styles.visibleIcon,{
     tintColor:"#ffffffff",
-
           }]}
         />
         <Image
+  accessibilityLabel="moon Icon"
+
           source={require('../../asset/Images/moon.png')} // Moon image
           style={[styles.icon, isDark && styles.visibleIcon]}
         />
