@@ -30,13 +30,13 @@ jest.mock("../../../src/components/atoms/Icon", () => (props: any) => {
 
 describe("Profile Screen", () => {
   it("renders correctly with header and content", () => {
-    const { getByText, getByLabelText,getByRole} = render(<Profile />);
+    const { getByText, getByLabelText,getByTestId} = render(<Profile />);
 
     // Header title
     expect(getByText("Settings")).toBeTruthy();
 
     // Back button
-    const backButton = getByRole("button");
+    const backButton = getByTestId("backButton");
     expect(backButton).toBeTruthy();
 
     // Check that Icon with name 'angle-left' is rendered
@@ -44,10 +44,11 @@ describe("Profile Screen", () => {
   });
 
   it("calls goBack when back button is pressed", () => {
-    const { getByRole } = render(<Profile />);
-    const backButton = getByRole("button");
-    fireEvent.press(backButton);
-    const { goBack } = require("../../../src/navigation/Navigationutils");
-    expect(goBack).toHaveBeenCalled();
+const { getByTestId } = render(<Profile />);
+const backButton = getByTestId("backButton");
+fireEvent.press(backButton);
+const { goBack } = require("../../../src/navigation/Navigationutils");
+expect(goBack).toHaveBeenCalled();
+
   });
 });

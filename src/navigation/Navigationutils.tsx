@@ -5,7 +5,10 @@ export const navigationRef=createNavigationContainerRef()
 export async function navigate(route:(keyof StackScreen),params?:object){
     navigationRef.isReady();
     if(navigationRef.isReady()){
-        navigationRef.dispatch(CommonActions.navigate(route,params));
+      navigationRef.dispatch(
+  CommonActions.navigate({ name: route, params })
+);
+
     }
 }
 

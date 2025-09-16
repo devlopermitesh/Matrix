@@ -22,15 +22,15 @@ const ListItem: React.FC<ListItemProps> = ({
   };
 
   return (
-    <Pressable   testID="list-item-pressable" onPress={()=>{
+    <Pressable   testID="list-item-pressable" onPress={async()=>{
       try {
        
-    navigate("TaskDetail",{
+    await navigate("TaskDetail",{
        id, name, iscompleted, description, dueDate,category
      }) 
       } catch (error) {
         console.log(error)
-        Alert.alert("somethhing went")
+        Alert.alert("somethhing went wrong")
       
       }
     }} style={styles.container}>
@@ -65,7 +65,7 @@ const ListItem: React.FC<ListItemProps> = ({
           <Text numberOfLines={1} style={styles.description}>
             {description}
           </Text>
-          <Day date={dueDate.toISOString()} />
+          <Day date={ dueDate instanceof Date && !isNaN(dueDate.getTime()) ? dueDate.toISOString():new Date().toISOString()} />
         </View>
       </View>
     </Pressable>

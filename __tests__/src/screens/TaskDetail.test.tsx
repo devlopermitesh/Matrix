@@ -3,6 +3,17 @@ import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import TaskDetail from '../../../src/screens/TaskDetails';
 import { useTodos } from '../../../src/state/todos';
 import { navigate } from '../../../src/navigation/Navigationutils';
+import { Categories } from '../../../src/data/constant';
+jest.mock("../../../src/state/newsql", () => {
+  return {
+    dbInstance: {
+      insertTodo: jest.fn(() => Promise.resolve()),
+      getTodos: jest.fn(() =>
+        Promise.resolve([{ id: "1", name: "Test", description: "2 packets", iscompleted: 0 }])
+      ),
+    },
+  };
+});
 
 // Mock modules
 jest.mock('../../../src/state/todos');
@@ -16,6 +27,7 @@ jest.mock('../../../src/components/moleculers/Taskmodel', () => (props: any) => 
 });
 jest.mock('../../../src/components/atoms/Icon', () => () => <></>);
 jest.mock('../../../src/components/atoms/CustomeSafeAreaView', () => ({ children }: any) => children);
+// Mock dependencies
 
 describe('TaskDetail Screen', () => {
   const mockMarkStatusChange = jest.fn();
@@ -27,7 +39,7 @@ describe('TaskDetail Screen', () => {
     name: 'Test Task',
     description: 'Description here',
     dueDate: new Date().toString(),
-    category: 'urgent',
+    category: Categories.urgentImportant,
     iscompleted: false,
   };
 

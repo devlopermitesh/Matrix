@@ -15,8 +15,6 @@ const Home = () => {
 useEffect(() => {
   (async () => {
     await setData()
-    const data=await notifee.getTriggerNotifications()
-    console.log("Data",data)
   })();
 }, []); // run only once on mount
 

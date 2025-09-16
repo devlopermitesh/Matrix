@@ -9,8 +9,9 @@ module.exports = {
     "^.+\\.(ts|tsx)$": "babel-jest",
   },
   transformIgnorePatterns: [
-    "node_modules/(?!((@)?react-native|@notifee/react-native|react-native-mmkv|react-native-sqlite-2|react-native-calendars)/)",
+    "node_modules/(?!((@)?react-native|@react-navigation|@notifee/react-native|react-native-mmkv|react-native-sqlite-2|react-native-calendars)/)"
   ],
+
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
   testPathIgnorePatterns: ["/node_modules/", "/android/", "/ios/"],
   moduleNameMapper: {

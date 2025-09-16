@@ -93,7 +93,7 @@ const TaskModal: FC<{
               <View style={styles.modalContent}>
                 {/* Header with close button */}
                 <View style={styles.header}>
-                  <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
+                  <TouchableOpacity testID="close-button" style={styles.closeButton} onPress={handleClose}>
                     <View style={styles.closeIcon} />
                   </TouchableOpacity>
                 </View>
@@ -164,6 +164,8 @@ const TaskModal: FC<{
                       <View style={styles.quadrantContainer}>
                           {quadrantOptions.map((option) => (
                             <TouchableOpacity
+                            
+                              testID={`quadrant-${option.key}`}
                               key={option.key}
                               style={[
                                 styles.quadrantButton,
@@ -218,7 +220,7 @@ const TaskModal: FC<{
         transparent={true}
         animationType="slide"
       >
-        <TouchableWithoutFeedback onPress={() => setShowCalendar(false)}>
+        <TouchableWithoutFeedback testID="calendarbackground" onPress={() => setShowCalendar(false)}>
           <View style={styles.modalBackground}>
             <View style={styles.calendarWrapper}>
               <Calendar

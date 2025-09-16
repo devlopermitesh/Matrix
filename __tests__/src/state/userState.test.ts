@@ -1,5 +1,14 @@
+jest.mock('../../../src/state/storage', () => ({
+  mmkvStorage: {
+    setItem: jest.fn(),
+    getItem: jest.fn(),
+    removeItem: jest.fn(),
+  },
+}));
 import useAccount, { accountStore, User } from "../../../src/state/userState"
 import { act } from "react"
+// Mock dependencies
+
 
 describe("Account state",()=>{
     //reset state before each operations

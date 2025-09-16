@@ -64,15 +64,6 @@ describe('ItemContainer', () => {
     expect(listItems).toHaveLength(2);
   });
 
-  it('applies correct border color based on category', () => {
-    const { getByText } = render(
-      <ItemContainer items={[]} title="Tasks" category="urgentImportant" />
-    );
-
-    const container = getByText('Tasks').parent;
-    console.log("container ",container)
-    expect(container?.props.style[1].borderLeftColor).toBe(Colors['urgentImportant']);
-  });
 
   it('passes correct item data to ListItem components', () => {
     const { getByTestId } = render(

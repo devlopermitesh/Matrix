@@ -46,8 +46,3 @@ const mockMMKVInstance = {
   delete: jest.fn(),
 };
 
-jest.mock('react-native-mmkv', () => {
-  return {
-    MMKV: jest.fn().mockImplementation(() => mockMMKVInstance),
-  };
-});

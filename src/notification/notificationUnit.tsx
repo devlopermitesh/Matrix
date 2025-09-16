@@ -2,7 +2,6 @@ import notifee,{ AndroidAction, AndroidImportance, AndroidStyle, IntervalTrigger
 
 export const createTimestampNotification=async(imageUrl:string,title:string,body:string,triggerDate:Date,notificationId:string)=>{
     const now=new Date();
-
     const trigger:TimestampTrigger={
         type:TriggerType.TIMESTAMP,
        timestamp: Date.now() + 60 * 3000,
