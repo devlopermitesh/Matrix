@@ -2,6 +2,9 @@ import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import React from 'react';
 import { IconThemeType } from '../../data/constant';
 import { RFValue } from 'react-native-responsive-fontsize';
+import bellImg from '../../asset/Images/bell.png';
+import infoImg from '../../asset/Images/info.png';
+import themeImg from '../../asset/Images/theme.png';
 
 interface IconTitleProps {
   name: string;
@@ -13,19 +16,24 @@ const Icontitle: React.FC<IconTitleProps> = ({ Icontype, name, style }) => {
   const getImage = () => {
     switch (Icontype) {
       case 'bell':
-        return require('../../asset/Images/bell.png');
+        return bellImg;
       case 'info':
-        return require('../../asset/Images/info.png');
+        return infoImg;
       case 'theme':
-        return require('../../asset/Images/theme.png');
+        return themeImg;
       default:
-        return require('../../asset/Images/theme.png');
+        return themeImg;
     }
   };
 
   return (
     <View style={[styles.iconContainer, style]}>
-      <Image accessibilityRole='image'  accessible={true}  source={getImage()} style={styles.iconImage} />
+      <Image
+        accessibilityRole="image"
+        accessible={true}
+        source={getImage()}
+        style={styles.iconImage}
+      />
       <Text style={styles.iconText}>{name}</Text>
     </View>
   );
@@ -40,7 +48,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 20,
-    backgroundColor:'#ffffff',
+    backgroundColor: '#ffffff',
 
     shadowColor: '#000', // subtle shadow
     shadowOffset: { width: 0, height: 2 },
@@ -57,7 +65,7 @@ const styles = StyleSheet.create({
   iconText: {
     color: '#0c0c0cff',
     fontSize: RFValue(14),
-    fontStyle:"italic",
+    fontStyle: 'italic',
     fontWeight: '300', // thin font
     fontFamily: 'System', // default iOS/Android font, can change to custom
   },

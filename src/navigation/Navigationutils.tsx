@@ -1,15 +1,15 @@
-import { CommonActions, createNavigationContainerRef } from "@react-navigation/native";
-import { StackScreen } from "../navigation/router";
+import {
+  CommonActions,
+  createNavigationContainerRef,
+} from '@react-navigation/native';
+import { StackScreen } from '../navigation/router';
 
-export const navigationRef=createNavigationContainerRef()
-export async function navigate(route:(keyof StackScreen),params?:object){
-    navigationRef.isReady();
-    if(navigationRef.isReady()){
-      navigationRef.dispatch(
-  CommonActions.navigate({ name: route, params })
-);
-
-    }
+export const navigationRef = createNavigationContainerRef();
+export async function navigate(route: keyof StackScreen, params?: object) {
+  navigationRef.isReady();
+  if (navigationRef.isReady()) {
+    navigationRef.dispatch(CommonActions.navigate({ name: route, params }));
+  }
 }
 
 export async function resetAndnavigate(route: keyof StackScreen) {
@@ -23,23 +23,25 @@ export async function resetAndnavigate(route: keyof StackScreen) {
       CommonActions.reset({
         index: 0,
         routes: [{ name: route }],
-      })
+      }),
     );
   } else {
-    console.warn("Navigation not ready when trying to reset and navigate");
+    console.warn('Navigation not ready when trying to reset and navigate');
   }
 }
-export async function reset(route:keyof StackScreen){
-if(navigationRef.isReady()){
-    navigationRef.dispatch(CommonActions.reset({
-        index:0,
-        routes:[{name:route}]
-    }));
-}
+export async function reset(route: keyof StackScreen) {
+  if (navigationRef.isReady()) {
+    navigationRef.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: route }],
+      }),
+    );
+  }
 }
 export async function goBack() {
-    navigationRef.isReady();
-    if (navigationRef.isReady()) {
-        navigationRef.dispatch(CommonActions.goBack());
-    }
+  navigationRef.isReady();
+  if (navigationRef.isReady()) {
+    navigationRef.dispatch(CommonActions.goBack());
+  }
 }

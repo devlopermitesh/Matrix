@@ -1,4 +1,4 @@
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import CustomeSafeAreaView from '../components/atoms/CustomeSafeAreaView';
 import Header from '../components/organism/Header';
@@ -6,23 +6,22 @@ import ItemContainer from '../components/organism/ItemContainer';
 import { useTodos } from '../state/todos';
 import { Categories, CategoryTitles, Item } from '../data/constant';
 import PlusButton from '../components/atoms/PlusButton';
-import { dbInstance } from '../state/newsql';
 import TaskModal from '../components/moleculers/Taskmodel';
-import notifee from "@notifee/react-native"
+
 const Home = () => {
   const { todos, setData, newtodo } = useTodos();
   const [visible, setVisible] = useState(false);
-useEffect(() => {
-  (async () => {
-    await setData()
-  })();
-}, []); // run only once on mount
+  useEffect(() => {
+    (async () => {
+      await setData();
+    })();
+  }, []); // run only once on mount
 
   return (
     <CustomeSafeAreaView>
       <Header />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {Object.keys(todos).map((category) => (
+        {Object.keys(todos).map(category => (
           <ItemContainer
             title={CategoryTitles[category as keyof typeof Categories]}
             key={category}
@@ -33,13 +32,16 @@ useEffect(() => {
       </ScrollView>
 
       {/* Floating Plus Button */}
-      <PlusButton style={styles.floatingButton} onPress={() => setVisible(true)} />
+      <PlusButton
+        style={styles.floatingButton}
+        onPress={() => setVisible(true)}
+      />
       {visible && (
         <TaskModal
           visible={visible}
-          model_title='Add Task'
+          model_title="Add Task"
           onClose={() => setVisible(false)}
-          onSave={async(data) => {
+          onSave={async data => {
             const item: Item = {
               id: Math.random().toString(36).substring(2, 10),
               name: data.title,
@@ -53,7 +55,6 @@ useEffect(() => {
           }}
         />
       )}
-
     </CustomeSafeAreaView>
   );
 };
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
   },
   floatingButton: {
     position: 'absolute',
-    bottom: "15%",
+    bottom: '15%',
     right: 30,
   },
 });

@@ -4,12 +4,14 @@ import TaskDetail from '../../../src/screens/TaskDetails';
 import { useTodos } from '../../../src/state/todos';
 import { navigate } from '../../../src/navigation/Navigationutils';
 import { Categories } from '../../../src/data/constant';
-jest.mock("../../../src/state/newsql", () => {
+jest.mock('../../../src/state/newsql', () => {
   return {
     dbInstance: {
       insertTodo: jest.fn(() => Promise.resolve()),
       getTodos: jest.fn(() =>
-        Promise.resolve([{ id: "1", name: "Test", description: "2 packets", iscompleted: 0 }])
+        Promise.resolve([
+          { id: '1', name: 'Test', description: '2 packets', iscompleted: 0 },
+        ]),
       ),
     },
   };
@@ -21,12 +23,20 @@ jest.mock('../../../src/navigation/Navigationutils', () => ({
   navigate: jest.fn(),
   goBack: jest.fn(),
 }));
-jest.mock('../../../src/components/moleculers/Taskmodel', () => (props: any) => {
-  const { Text } = require('react-native');
-  return props.visible ? <Text>TaskModal</Text> : null;
-});
+jest.mock(
+  '../../../src/components/moleculers/Taskmodel',
+  () => (props: any) => {
+    const { Text } = require('react-native');
+    return props.visible ? <Text>TaskModal</Text> : null;
+  },
+);
 jest.mock('../../../src/components/atoms/Icon', () => () => <></>);
-jest.mock('../../../src/components/atoms/CustomeSafeAreaView', () => ({ children }: any) => children);
+jest.mock(
+  '../../../src/components/atoms/CustomeSafeAreaView',
+  () =>
+    ({ children }: any) =>
+      children,
+);
 // Mock dependencies
 
 describe('TaskDetail Screen', () => {
@@ -53,27 +63,37 @@ describe('TaskDetail Screen', () => {
   });
 
   it('renders task details', () => {
-    const { getByText } = render(<TaskDetail route={{ params: task } as any} />);
+    const { getByText } = render(
+      <TaskDetail route={{ params: task } as any} />,
+    );
     expect(getByText(task.name)).toBeTruthy();
     expect(getByText(task.description)).toBeTruthy();
   });
 
   it('opens TaskModal on Edit press', () => {
-    const { getByText } = render(<TaskDetail route={{ params: task } as any} />);
+    const { getByText } = render(
+      <TaskDetail route={{ params: task } as any} />,
+    );
     fireEvent.press(getByText('Edit'));
     expect(getByText('TaskModal')).toBeTruthy();
   });
 
   it('marks task complete', async () => {
-    const { getByText } = render(<TaskDetail route={{ params: task } as any} />);
+    const { getByText } = render(
+      <TaskDetail route={{ params: task } as any} />,
+    );
     const completeBtn = getByText('Mark Complete');
     fireEvent.press(completeBtn);
-    await waitFor(() => expect(mockMarkStatusChange).toHaveBeenCalledWith(task.id, true));
+    await waitFor(() =>
+      expect(mockMarkStatusChange).toHaveBeenCalledWith(task.id, true),
+    );
     expect(getByText('Completed')).toBeTruthy();
   });
 
   it('deletes task', async () => {
-    const { getByText } = render(<TaskDetail route={{ params: task } as any} />);
+    const { getByText } = render(
+      <TaskDetail route={{ params: task } as any} />,
+    );
     const deleteBtn = getByText('Delete Task');
     fireEvent.press(deleteBtn);
     await waitFor(() => expect(mockDeleteTodo).toHaveBeenCalledWith(task.id));

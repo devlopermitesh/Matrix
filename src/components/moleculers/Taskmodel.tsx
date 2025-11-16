@@ -1,5 +1,4 @@
 import {
-  Alert,
   Keyboard,
   KeyboardAvoidingView,
   Modal,
@@ -11,12 +10,12 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
-} from "react-native";
-import React, { FC, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import Icon from "../atoms/Icon";
-import { Categories } from "../../data/constant";
-import { Calendar } from "react-native-calendars";
+} from 'react-native';
+import React, { FC, useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import Icon from '../atoms/Icon';
+import { Categories } from '../../data/constant';
+import { Calendar } from 'react-native-calendars';
 
 export interface Item {
   id: string;
@@ -34,14 +33,16 @@ interface TaskFormData {
   dueDate?: string;
 }
 
-const TaskModal: FC<{ 
-  visible: boolean; 
-  model_title:string;
-  onClose: () => void; 
-  predata?:Item
+const TaskModal: FC<{
+  visible: boolean;
+  model_title: string;
+  onClose: () => void;
+  predata?: Item;
   onSave: (data: TaskFormData) => void;
-}> = ({ visible, onClose, onSave,model_title,predata }) => {
-  const [activeCategory,setActiveCategory]=useState(Categories.urgentImportant)
+}> = ({ visible, onClose, onSave, model_title, predata }) => {
+  const [activeCategory, setActiveCategory] = useState(
+    Categories.urgentImportant,
+  );
   const [showCalendar, setShowCalendar] = useState(false);
 
   const {
@@ -51,18 +52,21 @@ const TaskModal: FC<{
     formState: { errors, isValid },
   } = useForm<TaskFormData>({
     defaultValues: {
-      title: predata?.name ??'',
-      description: predata?.description??'',
-      quadrant: predata?.category??Categories.urgentImportant,
+      title: predata?.name ?? '',
+      description: predata?.description ?? '',
+      quadrant: predata?.category ?? Categories.urgentImportant,
       dueDate: predata?.dueDate.toString() ?? '',
     },
   });
 
   const quadrantOptions = [
-    { key: Categories.urgentImportant, label: "urgent & Important",  },
-    { key: Categories.noturgentImportant, label: "not Urgent & Important", },
-    { key: Categories.urgentnotImportant, label: "Urgent & not Important", },
-    { key: Categories.noturgentnotImportant, label:"not Urgent & not Important", },
+    { key: Categories.urgentImportant, label: 'urgent & Important' },
+    { key: Categories.noturgentImportant, label: 'not Urgent & Important' },
+    { key: Categories.urgentnotImportant, label: 'Urgent & not Important' },
+    {
+      key: Categories.noturgentnotImportant,
+      label: 'not Urgent & not Important',
+    },
   ];
 
   const onSubmit = (data: TaskFormData) => {
@@ -86,14 +90,18 @@ const TaskModal: FC<{
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.modalContainer}>
           <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.keyboardAvoidingView}
           >
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
               <View style={styles.modalContent}>
                 {/* Header with close button */}
                 <View style={styles.header}>
-                  <TouchableOpacity testID="close-button" style={styles.closeButton} onPress={handleClose}>
+                  <TouchableOpacity
+                    testID="close-button"
+                    style={styles.closeButton}
+                    onPress={handleClose}
+                  >
                     <View style={styles.closeIcon} />
                   </TouchableOpacity>
                 </View>
@@ -160,35 +168,33 @@ const TaskModal: FC<{
                   <Text style={styles.label}>Quadrant</Text>
                   <Controller
                     control={control}
-                    render={({ field: { onChange, value } }) => (
+                    render={({ field: { onChange } }) => (
                       <View style={styles.quadrantContainer}>
-                          {quadrantOptions.map((option) => (
-                            <TouchableOpacity
-                            
-                              testID={`quadrant-${option.key}`}
-                              key={option.key}
+                        {quadrantOptions.map(option => (
+                          <TouchableOpacity
+                            testID={`quadrant-${option.key}`}
+                            key={option.key}
+                            style={[
+                              styles.quadrantButton,
+                              option.key === activeCategory &&
+                                styles.quadrantButtonActive,
+                            ]}
+                            onPress={() => {
+                              onChange(option.key);
+                              setActiveCategory(option.key);
+                            }}
+                          >
+                            <Text
                               style={[
-                                styles.quadrantButton,
-                                option.key === activeCategory && styles.quadrantButtonActive,
-                           
+                                styles.quadrantButtonText,
+                                option.key === activeCategory &&
+                                  styles.quadrantButtonTextActive,
                               ]}
-                              onPress={() =>{
-                                 onChange(option.key)
-                                 setActiveCategory(option.key)
-
-                              }}
                             >
-                              <Text
-                                style={[
-                                  styles.quadrantButtonText,
-                               option.key === activeCategory && styles.quadrantButtonTextActive,
-                                ]}
-                              >
-                                {option.label}
-                              </Text>
-                            </TouchableOpacity>
-                          ))}
-                      
+                              {option.label}
+                            </Text>
+                          </TouchableOpacity>
+                        ))}
                       </View>
                     )}
                     name="quadrant"
@@ -198,53 +204,62 @@ const TaskModal: FC<{
                 {/* Due Date Input */}
                 <View style={styles.inputContainer}>
                   <Text style={styles.label}>Due Date (optional)</Text>
-<Controller
-  control={control}
-  name="dueDate"
-  render={({ field: { onChange, value } }) => (
-    <>
-      {/* Input field */}
-      <TouchableOpacity
-        style={styles.dateInputContainer}
-        onPress={() => setShowCalendar(true)}
-      >
-        <Text style={{ color: value ? '#000' : '#999' }}>
-          {value || 'Select due date'}
-        </Text>
-        <Icon name="calendar" iconType="ionicons" size={20} color="#666" />
-      </TouchableOpacity>
+                  <Controller
+                    control={control}
+                    name="dueDate"
+                    render={({ field: { onChange, value } }) => (
+                      <>
+                        {/* Input field */}
+                        <TouchableOpacity
+                          style={styles.dateInputContainer}
+                          onPress={() => setShowCalendar(true)}
+                        >
+                          <Text style={{ color: value ? '#000' : '#999' }}>
+                            {value || 'Select due date'}
+                          </Text>
+                          <Icon
+                            name="calendar"
+                            iconType="ionicons"
+                            size={20}
+                            color="#666"
+                          />
+                        </TouchableOpacity>
 
-      {/* Calendar Modal */}
-      <Modal
-        visible={showCalendar}
-        transparent={true}
-        animationType="slide"
-      >
-        <TouchableWithoutFeedback testID="calendarbackground" onPress={() => setShowCalendar(false)}>
-          <View style={styles.modalBackground}>
-            <View style={styles.calendarWrapper}>
-              <Calendar
-                onDayPress={(day) => {
-                  onChange(day.dateString); // update form
-                  setShowCalendar(false);   // close modal
-                }}
-                markedDates={{
-                  [value || '']: { selected: true, selectedColor: '#4A90E2' },
-                }}
-                theme={{
-                  todayTextColor: '#1591EA',
-                  arrowColor: '#1591EA',
-                }}
-              />
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
-    </>
-  )}
-/>
-
-
+                        {/* Calendar Modal */}
+                        <Modal
+                          visible={showCalendar}
+                          transparent={true}
+                          animationType="slide"
+                        >
+                          <TouchableWithoutFeedback
+                            testID="calendarbackground"
+                            onPress={() => setShowCalendar(false)}
+                          >
+                            <View style={styles.modalBackground}>
+                              <View style={styles.calendarWrapper}>
+                                <Calendar
+                                  onDayPress={day => {
+                                    onChange(day.dateString); // update form
+                                    setShowCalendar(false); // close modal
+                                  }}
+                                  markedDates={{
+                                    [value || '']: {
+                                      selected: true,
+                                      selectedColor: '#4A90E2',
+                                    },
+                                  }}
+                                  theme={{
+                                    todayTextColor: '#1591EA',
+                                    arrowColor: '#1591EA',
+                                  }}
+                                />
+                              </View>
+                            </View>
+                          </TouchableWithoutFeedback>
+                        </Modal>
+                      </>
+                    )}
+                  />
                 </View>
 
                 {/* Buttons */}
@@ -354,26 +369,24 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   quadrantContainer: {
-    flexDirection:"row",
-    flex:1,
-    flexWrap:"wrap",
+    flexDirection: 'row',
+    flex: 1,
+    flexWrap: 'wrap',
     justifyContent: 'space-between', // gap between items horizontally
-
   },
- 
+
   quadrantButton: {
-    marginTop:6,
-    marginHorizontal:1,
+    marginTop: 6,
+    marginHorizontal: 1,
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 8,
-    flexWrap:"wrap",
-    justifyContent:"center",
+    flexWrap: 'wrap',
+    justifyContent: 'center',
     backgroundColor: '#F5F5F5',
     alignItems: 'center',
-    width: '48%',          // 2 columns
-    padding: 8, 
-
+    width: '48%', // 2 columns
+    padding: 8,
   },
   quadrantButtonActive: {
     backgroundColor: '#4A90E2',
@@ -429,30 +442,29 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   modalBackground: {
-  flex: 1,
-  backgroundColor: 'rgba(0,0,0,0.5)',
-  justifyContent: 'center',
-  alignItems: 'center',
-},
-calendarWrapper: {
-  backgroundColor: '#fff',
-  borderRadius: 12,
-  padding: 16,
-  width: '90%',
-  maxHeight: '80%',
-},
-dateInputContainer: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  borderWidth: 1,
-  borderColor: '#E0E0E0',
-  borderRadius: 8,
-  paddingHorizontal: 16,
-  paddingVertical: 12,
-  backgroundColor: '#F9F9F9',
-},
-
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  calendarWrapper: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 16,
+    width: '90%',
+    maxHeight: '80%',
+  },
+  dateInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: '#F9F9F9',
+  },
 });
 
 export default TaskModal;

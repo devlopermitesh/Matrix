@@ -7,17 +7,23 @@ type AvatarProps = {
   backgroundColor?: string;
 };
 
-const Avatar: React.FC<AvatarProps> = ({ name, size = 80, backgroundColor }) => {
-const getColor = (name:string) => {
+const Avatar: React.FC<AvatarProps> = ({ name, size = 80 }) => {
+  const getColor = (name: string) => {
     const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7'];
-    const hash = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const hash = name
+      .split('')
+      .reduce((acc, char) => acc + char.charCodeAt(0), 0);
     return colors[hash % colors.length];
   };
 
-  const getInitials = (name:string) => {
-    return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
   };
-
 
   return (
     <View
@@ -31,16 +37,16 @@ const getColor = (name:string) => {
         },
       ]}
     >
-          <Text style={{ fontSize: size * 0.4, color: 'white', fontWeight: 'bold' }}>
+      <Text
+        style={{ fontSize: size * 0.4, color: 'white', fontWeight: 'bold' }}
+      >
         {getInitials(name)}
       </Text>
-
     </View>
   );
 };
 
 // Example usage
-
 
 const styles = StyleSheet.create({
   container: {

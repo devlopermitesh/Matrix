@@ -32,13 +32,25 @@ jest.mock('../../../src/components/moleculers/Taskmodel', () => {
     ) : null;
 });
 
-jest.mock('../../../src/components/atoms/CustomeSafeAreaView', () => ({ children }: any) => children);
+jest.mock(
+  '../../../src/components/atoms/CustomeSafeAreaView',
+  () =>
+    ({ children }: any) =>
+      children,
+);
 jest.mock('../../../src/components/organism/Header', () => () => null);
 
 describe('Home Screen', () => {
   const todosMock = {
     urgentnotImportant: [
-      { id: '1', name: 'Test Task', category: 'urgentnotImportant', description: 'desc', dueDate: new Date().toString(), iscompleted: false }
+      {
+        id: '1',
+        name: 'Test Task',
+        category: 'urgentnotImportant',
+        description: 'desc',
+        dueDate: new Date().toString(),
+        iscompleted: false,
+      },
     ],
   };
 
@@ -53,7 +65,9 @@ describe('Home Screen', () => {
 
   it('renders todos correctly', async () => {
     const { getByText } = render(<Home />);
-    await waitFor(() => expect(getByText(CategoryTitles['urgentnotImportant'])).toBeTruthy());
+    await waitFor(() =>
+      expect(getByText(CategoryTitles['urgentnotImportant'])).toBeTruthy(),
+    );
   });
 
   it('opens TaskModal when PlusButton is pressed', async () => {
@@ -74,23 +88,7 @@ describe('Home Screen', () => {
   });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ---Rest code by ai 
-
-
+// ---Rest code by ai
 
 // import React from 'react';
 // import { render, fireEvent, waitFor, act } from '@testing-library/react-native';
@@ -126,8 +124,8 @@ describe('Home Screen', () => {
 // jest.mock('../components/atoms/PlusButton', () => {
 //   const { TouchableOpacity, Text } = require('react-native');
 //   return ({ onPress, style }) => (
-//     <TouchableOpacity 
-//       testID="plus-button" 
+//     <TouchableOpacity
+//       testID="plus-button"
 //       onPress={onPress}
 //       style={style}
 //     >
@@ -140,18 +138,18 @@ describe('Home Screen', () => {
 //   const { View, Text, TouchableOpacity } = require('react-native');
 //   return ({ visible, model_title, onClose, onSave }) => {
 //     if (!visible) return null;
-    
+
 //     return (
 //       <View testID="task-modal">
 //         <Text testID="modal-title">{model_title}</Text>
-//         <TouchableOpacity 
-//           testID="modal-close-button" 
+//         <TouchableOpacity
+//           testID="modal-close-button"
 //           onPress={onClose}
 //         >
 //           <Text>Close</Text>
 //         </TouchableOpacity>
-//         <TouchableOpacity 
-//           testID="modal-save-button" 
+//         <TouchableOpacity
+//           testID="modal-save-button"
 //           onPress={() => onSave({
 //             title: 'Test Task',
 //             description: 'Test Description',
@@ -241,7 +239,7 @@ describe('Home Screen', () => {
 
 //     it('should handle setData errors gracefully', async () => {
 //       mockUseTodos.setData.mockRejectedValue(new Error('Database error'));
-      
+
 //       // Should not throw error even if setData fails
 //       expect(() => render(<Home />)).not.toThrow();
 //     });
@@ -342,11 +340,11 @@ describe('Home Screen', () => {
 //         const { View, Text, TouchableOpacity } = require('react-native');
 //         return ({ visible, model_title, onClose, onSave }) => {
 //           if (!visible) return null;
-          
+
 //           return (
 //             <View testID="task-modal">
-//               <TouchableOpacity 
-//                 testID="modal-save-button" 
+//               <TouchableOpacity
+//                 testID="modal-save-button"
 //                 onPress={() => onSave({
 //                   title: 'Test Task',
 //                   description: 'Test Description',
@@ -386,11 +384,11 @@ describe('Home Screen', () => {
 //         const { View, Text, TouchableOpacity } = require('react-native');
 //         return ({ visible, model_title, onClose, onSave }) => {
 //           if (!visible) return null;
-          
+
 //           return (
 //             <View testID="task-modal">
-//               <TouchableOpacity 
-//                 testID="modal-save-button" 
+//               <TouchableOpacity
+//                 testID="modal-save-button"
 //                 onPress={() => onSave({
 //                   title: 'Test Task',
 //                   quadrant: 'urgentImportant',
@@ -428,11 +426,11 @@ describe('Home Screen', () => {
 //   describe('Error Handling', () => {
 //     it('should handle newtodo errors gracefully', async () => {
 //       mockUseTodos.newtodo.mockRejectedValue(new Error('Save failed'));
-      
+
 //       const { getByTestId } = render(<Home />);
 
 //       fireEvent.press(getByTestId('plus-button'));
-      
+
 //       // Should not throw error even if save fails
 //       await act(async () => {
 //         expect(() => fireEvent.press(getByTestId('modal-save-button'))).not.toThrow();
@@ -443,7 +441,7 @@ describe('Home Screen', () => {
 //   describe('Styling', () => {
 //     it('should apply correct styles to floating button', () => {
 //       const { getByTestId } = render(<Home />);
-      
+
 //       const plusButton = getByTestId('plus-button');
 //       expect(plusButton.props.style).toEqual(
 //         expect.objectContaining({

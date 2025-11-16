@@ -5,18 +5,17 @@ module.exports = {
     android: {},
   },
   dependencies: {
-    "react-native-vector-icons": {
+    'react-native-vector-icons': {
       platforms: {
         ios: null,
       },
     },
-
   },
-  assets: ["./src/asset"],
+  assets: ['./src/asset'],
   getTransformModulePath() {
-    return require.resolve("react-native-typescript-transformer");
+    return require.resolve('react-native-typescript-transformer');
   },
   getSourceExts() {
-    return ["ts", "tsx"];
+    return ['ts', 'tsx'];
   },
 };
