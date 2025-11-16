@@ -86,6 +86,7 @@ android {
     namespace "com.matrix"
     defaultConfig {
         applicationId "com.matrix"
+        testApplicationId "com.matrix.test"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         testBuildType System.getProperty('testBuildType', 'debug')
@@ -136,5 +137,17 @@ dependencies {
         implementation("com.facebook.react:hermes-android")
     } else {
         implementation jscFlavor
+    }
+}
+subprojects { subproject ->
+    afterEvaluate {
+        if (subproject.hasProperty("android")) {
+            subproject.android {
+                if (it.defaultConfig.minSdkVersion.apiLevel < 24) {
+                    it.defaultConfig.minSdkVersion 24
+                    println("✅ Overriding minSdkVersion for " + subproject.name)
+                }
+            }
+        }
     }
 }

@@ -23,11 +23,12 @@ module.exports = {
     "android.debug": {
       "type": "android.apk",
       "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
+      "testBinaryPath": "android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
       "build": "cd android && gradlew.bat assembleDebug assembleAndroidTest -DtestBuildType=debug",
       "reversePorts": [
         8081
       ],
-  
+
     },
     'android.release': {
       type: 'android.apk',
@@ -51,7 +52,7 @@ module.exports = {
     emulator: {
       type: 'android.emulator',
       device: {
-        avdName: '.*'
+        avdName: 'Pixel_8_API_36'
       }
     }
   },
@@ -72,7 +73,7 @@ module.exports = {
       device: 'attached',
       app: 'android.release',
       autoGrantPermissions: false, // Disable auto grant for physical devices
-      reinstallApp: false 
+      reinstallApp: false
     },
     'android.emu.debug': {
       device: 'emulator',

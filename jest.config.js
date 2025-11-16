@@ -3,7 +3,6 @@ module.exports = {
   preset: "react-native",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
-
   setupFiles: ["<rootDir>/jest.setup.mocks.ts"],
   transform: {
     "^.+\\.(ts|tsx)$": "babel-jest",
@@ -13,7 +12,7 @@ module.exports = {
   ],
 
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-  testPathIgnorePatterns: ["/node_modules/", "/android/", "/ios/"],
+  testPathIgnorePatterns: ["/node_modules/", "/android/", "/ios/", "/e2e/"],
   moduleNameMapper: {
     '\\.(png|jpg|gif|svg)$': "<rootDir>/__mocks__/fileMock.tsx",
     "^@notifee/react-native$": "<rootDir>/__mocks__/@notifee/react-native.ts",
