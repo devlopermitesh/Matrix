@@ -1,4 +1,3 @@
-
 module.exports = {
   __esModule: true,
   default: {
@@ -10,7 +9,9 @@ module.exports = {
     getInitialNotification: jest.fn(() => Promise.resolve(null)),
     onForegroundEvent: jest.fn(),
     onBackgroundEvent: jest.fn(),
-    requestPermission: jest.fn(() => Promise.resolve({ authorizationStatus: 1 })),
+    requestPermission: jest.fn(() =>
+      Promise.resolve({ authorizationStatus: 1 }),
+    ),
   },
   AndroidImportance: {
     HIGH: 4,

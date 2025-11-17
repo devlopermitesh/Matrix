@@ -5,43 +5,41 @@ jest.mock('../../../src/state/storage', () => ({
     removeItem: jest.fn(),
   },
 }));
-import useAccount, { accountStore, User } from "../../../src/state/userState"
-import { act } from "react"
+import useAccount, { accountStore, User } from '../../../src/state/userState';
+import { act } from 'react';
 // Mock dependencies
 
-
-describe("Account state",()=>{
-    //reset state before each operations
-    beforeEach(()=>{
-   accountStore.setState({
-    user:null,
-    theme:"Light",
-    firstVisit:false,
-    NotificationOn:true    
-   })
-    })
-
-///update profile
-it("Update profile action",()=>{
-    const newUser:User={
-        username:"Mitesh",
-        punchLine:"Line is everywhere"
-    }
-    act(()=>{
-     useAccount.getState().updateProfile(newUser)
-    })
-    expect(useAccount.getState().user).toEqual(newUser)
-})
- it("should update theme", () => {
-    act(() => {
-      useAccount.getState().updateTheme("Dark");
+describe('Account state', () => {
+  //reset state before each operations
+  beforeEach(() => {
+    accountStore.setState({
+      user: null,
+      theme: 'Light',
+      firstVisit: false,
+      NotificationOn: true,
     });
-
-    expect(useAccount.getState().theme).toBe("Dark");
   });
 
+  ///update profile
+  it('Update profile action', () => {
+    const newUser: User = {
+      username: 'Mitesh',
+      punchLine: 'Line is everywhere',
+    };
+    act(() => {
+      useAccount.getState().updateProfile(newUser);
+    });
+    expect(useAccount.getState().user).toEqual(newUser);
+  });
+  it('should update theme', () => {
+    act(() => {
+      useAccount.getState().updateTheme('Dark');
+    });
 
-  it("should toggle notification", () => {
+    expect(useAccount.getState().theme).toBe('Dark');
+  });
+
+  it('should toggle notification', () => {
     expect(useAccount.getState().NotificationOn).toBe(true);
 
     act(() => {
@@ -51,15 +49,11 @@ it("Update profile action",()=>{
     expect(useAccount.getState().NotificationOn).toBe(false);
   });
 
-  it("should mark as visited", () => {
+  it('should mark as visited', () => {
     act(() => {
       useAccount.getState().visited();
     });
 
     expect(useAccount.getState().firstVisit).toBe(true);
   });
-})
-
-
-
-
+});

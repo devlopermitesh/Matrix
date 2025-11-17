@@ -1,4 +1,10 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import CustomeSafeAreaView from '../components/atoms/CustomeSafeAreaView';
 import Icon from '../components/atoms/Icon';
@@ -6,8 +12,6 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { goBack } from '../navigation/Navigationutils';
 import AvatarDetails from '../components/moleculers/AvatarDetails';
 import useAccount from '../state/userState';
-import ApprenceItem from '../components/moleculers/ApprenceItem';
-import Icontitle from '../components/atoms/Icontitle';
 import AppranceCollection from '../components/organism/AppranceCollection';
 
 const Profile = () => {
@@ -17,13 +21,14 @@ const Profile = () => {
     <CustomeSafeAreaView>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity 
+        <TouchableOpacity
           testID="backButton"
-   accessibilityRole='button'
-  accessible={true}
-   onPress={() => goBack()} style={styles.backButton}>
+          accessibilityRole="button"
+          accessible={true}
+          onPress={() => goBack()}
+          style={styles.backButton}
+        >
           <Icon
-            
             name="angle-left"
             color="#333"
             size={RFValue(22)}
@@ -31,13 +36,13 @@ const Profile = () => {
           />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Settings</Text>
-        <View style={{ width: RFValue(22) }} /> 
+        <View style={{ width: RFValue(22) }} />
       </View>
 
       {/* Content */}
       <ScrollView contentContainerStyle={styles.content}>
         <AvatarDetails user={user} />
-       <AppranceCollection/>
+        <AppranceCollection />
       </ScrollView>
     </CustomeSafeAreaView>
   );
@@ -65,7 +70,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     paddingHorizontal: 15,
-    padding:4,
+    padding: 4,
   },
   headerTitle: {
     fontSize: RFValue(16),

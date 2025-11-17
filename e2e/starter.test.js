@@ -1,3 +1,5 @@
+/* eslint-env jest, detox */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 describe('Example', () => {
   beforeAll(async () => {
     await device.launchApp();
@@ -7,7 +9,7 @@ describe('Example', () => {
     await device.reloadReactNative();
   });
 
-  it("2 is testing", () => {
-    expect(2).toBeTruthy()
-  })
+  it('2 is testing', () => {
+    expect(2).toBeTruthy();
+  });
 });

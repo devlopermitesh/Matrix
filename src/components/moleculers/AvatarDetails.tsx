@@ -9,8 +9,8 @@ interface AvatarDetailsProps {
 
 const AvatarDetails: React.FC<AvatarDetailsProps> = ({ user }) => {
   return (
-    <View  testID={'avatar'} style={styles.rowContainer}>
-      <Avatar  name={user?.username ?? 'random'} size={60} />
+    <View testID={'avatar'} style={styles.rowContainer}>
+      <Avatar name={user?.username ?? 'random'} size={60} />
 
       <View style={styles.colContainer}>
         <Text style={styles.username}>{user?.username ?? 'Guest User'}</Text>
