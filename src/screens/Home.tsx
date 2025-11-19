@@ -11,6 +11,9 @@ import TaskModal from '../components/moleculers/Taskmodel';
 const Home = () => {
   const { todos, setData, newtodo } = useTodos();
   const [visible, setVisible] = useState(false);
+
+
+  
   useEffect(() => {
     (async () => {
       await setData();
