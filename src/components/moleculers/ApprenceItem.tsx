@@ -5,10 +5,15 @@ interface ApprenceItemProps {
   title: string;
   children: React.ReactNode;
   style?: ViewStyle;
-  testID?:string;
+  testID?: string;
 }
 
-const ApprenceItem: React.FC<ApprenceItemProps> = ({ title, children, style,testID }) => {
+const ApprenceItem: React.FC<ApprenceItemProps> = ({
+  title,
+  children,
+  style,
+  testID,
+}) => {
   return (
     <View testID={testID} style={styles.colStyle}>
       <Text style={styles.title}>{title}</Text>
@@ -26,10 +31,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: 12,
     marginVertical: 4,
-    backgroundColor:'#ffffff',
-    borderRadius:20,
-    padding:10,
-        // Shadow for iOS
+    backgroundColor: '#ffffff',
+    borderRadius: 20,
+    padding: 10,
+    // Shadow for iOS
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
@@ -47,12 +52,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor:'#ffffff',
+    backgroundColor: '#ffffff',
 
     borderRadius: 16,
     paddingHorizontal: 16,
     paddingVertical: 12,
-     // Shadow for iOS
+    // Shadow for iOS
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
@@ -60,6 +65,5 @@ const styles = StyleSheet.create({
 
     // Shadow for Android
     elevation: 2,
-
   },
 });

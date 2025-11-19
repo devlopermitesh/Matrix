@@ -1,27 +1,39 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, Image, StyleSheet, Animated } from 'react-native';
-interface DarkLightToggleProps{
-    isDark:boolean,
-    onPress:()=>void,
-    testId?:string,
+import React from 'react';
+import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import Sun from '../../asset/Images/sun.png';
+import Moon from '../../asset/Images/moon.png';
+interface DarkLightToggleProps {
+  isDark: boolean;
+  onPress: () => void;
+  testId?: string;
 }
-const DarkLightToggle:React.FC<DarkLightToggleProps>= ({isDark,onPress,testId}) => {
-
+const DarkLightToggle: React.FC<DarkLightToggleProps> = ({
+  isDark,
+  onPress,
+  testId,
+}) => {
   return (
-    <TouchableOpacity testID={testId} accessibilityRole="button" style={[styles.container,]} onPress={onPress}>
-        
+    <TouchableOpacity
+      testID={testId}
+      accessibilityRole="button"
+      style={[styles.container]}
+      onPress={onPress}
+    >
       <View style={styles.iconWrapper}>
         <Image
-  accessibilityLabel="Sun Icon"
-          source={require('../../asset/Images/sun.png')} // Sun image
-          style={[styles.icon, !isDark && styles.visibleIcon,{
-    tintColor:"#ffffffff",
-          }]}
+          accessibilityLabel="Sun Icon"
+          source={Sun} // Sun image
+          style={[
+            styles.icon,
+            !isDark && styles.visibleIcon,
+            {
+              tintColor: '#ffffffff',
+            },
+          ]}
         />
         <Image
-  accessibilityLabel="moon Icon"
-
-          source={require('../../asset/Images/moon.png')} // Moon image
+          accessibilityLabel="moon Icon"
+          source={Moon} // Moon image
           style={[styles.icon, isDark && styles.visibleIcon]}
         />
       </View>
@@ -39,12 +51,12 @@ const styles = StyleSheet.create({
     padding: 4,
     justifyContent: 'center',
     alignItems: 'center',
-      // Shadow for iOS
+    // Shadow for iOS
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 4,
- backgroundColor:"#eeefefff",
+    backgroundColor: '#eeefefff',
     // Shadow for Android
     elevation: 2,
   },
@@ -54,17 +66,15 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     paddingHorizontal: 6,
-
   },
   icon: {
     width: 22,
     height: 22,
-    objectFit:"cover",
-    tintColor:"#7d7070ff",
+    objectFit: 'cover',
+    tintColor: '#7d7070ff',
     opacity: 0, // hidden by default
   },
   visibleIcon: {
     opacity: 1,
-
   },
 });

@@ -1,17 +1,17 @@
-import { Image, StyleSheet, TouchableOpacity, View, Text } from "react-native";
-import Icon from "../atoms/Icon";
-import { RFValue } from "react-native-responsive-fontsize";
-import { navigate } from "../../navigation/Navigationutils";
-
+import { Image, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { navigate } from '../../navigation/Navigationutils';
+import TickIcon from '../../asset/Images/tickicon.png';
+import SettingsIcon from '../../asset/Images/settingicon.png';
 const Header = () => {
   return (
     <View style={styles.container}>
       {/* Left Section */}
       <View style={styles.leftSection}>
         <Image
-        testID="tick-icon" 
-          source={require("../../asset/Images/tickicon.png")}
-          style={{ 
+          testID="tick-icon"
+          source={TickIcon}
+          style={{
             height: RFValue(25),
             width: RFValue(25),
           }}
@@ -20,11 +20,13 @@ const Header = () => {
       </View>
 
       {/* Right Section */}
-      <TouchableOpacity testID="settings-button" onPress={() =>navigate("Profile")}>
+      <TouchableOpacity
+        testID="settings-button"
+        onPress={() => navigate('Profile')}
+      >
         <Image
-        testID="settings-icon" 
-
-          source={require("../../asset/Images/settingicon.png")}
+          testID="settings-icon"
+          source={SettingsIcon}
           style={styles.settingIcon}
         />
       </TouchableOpacity>
@@ -36,16 +38,16 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    width: "100%",
+    flexDirection: 'row',
+    width: '100%',
     height: RFValue(50),
-    backgroundColor: "#fff",
-    justifyContent: "space-between",
-    alignItems: "center",
+    backgroundColor: '#fff',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: RFValue(12),
 
     // shadow for iOS
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
@@ -54,18 +56,18 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   leftSection: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: RFValue(6),
   },
   text: {
-    fontWeight: "700",
+    fontWeight: '700',
     fontSize: RFValue(18),
-    color: "#000",
+    color: '#000',
   },
   settingIcon: {
     height: RFValue(26),
     width: RFValue(26),
-    resizeMode: "contain",
+    resizeMode: 'contain',
   },
 });

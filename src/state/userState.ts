@@ -1,6 +1,6 @@
-import { create, StoreApi } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
-import { mmkvStorage } from "./storage";
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
+import { mmkvStorage } from './storage';
 
 export type User = {
   username: string;
@@ -9,11 +9,11 @@ export type User = {
 
 interface useAccountProps {
   user: User | null;
-  theme: "Dark" | "Light";
+  theme: 'Dark' | 'Light';
   NotificationOn: boolean;
   firstVisit: boolean;
   updateProfile: (data: User) => void;
-  updateTheme: (theme: "Dark" | "Light") => void;
+  updateTheme: (theme: 'Dark' | 'Light') => void;
   visited: () => void;
   toggleNotification: () => void;
 }
@@ -22,17 +22,17 @@ const useAccount = create<useAccountProps>()(
   persist(
     (set, get) => ({
       user: null,
-      theme: "Light",
+      theme: 'Light',
       NotificationOn: true,
       firstVisit: false,
 
       updateProfile: (data: User) => {
-        set((state) => ({
+        set(state => ({
           user: { ...state.user, ...data },
         }));
       },
 
-      updateTheme: (theme: "Dark" | "Light") => {
+      updateTheme: (theme: 'Dark' | 'Light') => {
         set(() => ({
           theme: theme,
         }));
@@ -51,10 +51,10 @@ const useAccount = create<useAccountProps>()(
       },
     }),
     {
-      name: "account-store", // Key in MMKV
+      name: 'account-store', // Key in MMKV
       storage: createJSONStorage(() => mmkvStorage),
-    }
-  )
+    },
+  ),
 );
 
 // Export both the hook and the store API

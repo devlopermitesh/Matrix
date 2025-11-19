@@ -1,51 +1,58 @@
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Icon from "../atoms/Icon";
-import { Item } from "../../data/constant";
-import Day from "../atoms/Day";
-import { useTodos } from "../../state/todos";
-import { Pressable } from "react-native";
-import { navigate } from "../../navigation/Navigationutils";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Icon from '../atoms/Icon';
+import { Item } from '../../data/constant';
+import Day from '../atoms/Day';
+import { useTodos } from '../../state/todos';
+import { Pressable } from 'react-native';
+import { navigate } from '../../navigation/Navigationutils';
 
 interface ListItemProps {
-  item: Item 
+  item: Item;
 }
 
 const ListItem: React.FC<ListItemProps> = ({
-  item: {id, name, iscompleted, description, dueDate,category },
+  item: { id, name, iscompleted, description, dueDate, category },
 }) => {
-  const {markStatusChange} = useTodos()
-  
-  const handlePress = async() => {
-    await markStatusChange(id,!iscompleted)
+  const { markStatusChange } = useTodos();
+
+  const handlePress = async () => {
+    await markStatusChange(id, !iscompleted);
   };
 
   return (
-    <Pressable   testID="list-item-pressable" onPress={()=>{
-      try {
-       
-    navigate("TaskDetail",{
-       id, name, iscompleted, description, dueDate,category
-     }) 
-      } catch (error) {
-        console.log(error)
-        Alert.alert("somethhing went")
-      
-      }
-    }} style={styles.container}>
+    <Pressable
+      testID="list-item-pressable"
+      onPress={async () => {
+        try {
+          await navigate('TaskDetail', {
+            id,
+            name,
+            iscompleted,
+            description,
+            dueDate,
+            category,
+          });
+        } catch (error) {
+          console.log(error);
+          Alert.alert('somethhing went wrong');
+        }
+      }}
+      style={styles.container}
+    >
       {/* Checkbox Button */}
-      <TouchableOpacity 
-        style={styles.checkButton}   
+      <TouchableOpacity
+        style={styles.checkButton}
         onPress={handlePress}
         activeOpacity={0.7} // Add visual feedback
-        hitSlop={{top: 10, bottom: 10, left: 10, right: 10}} // Increase touch area
+        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} // Increase touch area
       >
         <Icon
-          name={iscompleted ? "checkmark-circle" : "ellipse-outline"}
+          name={iscompleted ? 'checkmark-circle' : 'ellipse-outline'}
           iconType="ionicons"
           size={RFValue(20)}
-          color={iscompleted ? "#4CAF50" : "#999"}
+          color={iscompleted ? '#4CAF50' : '#999'}
         />
       </TouchableOpacity>
 
@@ -54,7 +61,10 @@ const ListItem: React.FC<ListItemProps> = ({
         <Text
           style={[
             styles.taskName,
-            iscompleted && { textDecorationLine: "line-through", color: "#777" },
+            iscompleted && {
+              textDecorationLine: 'line-through',
+              color: '#777',
+            },
           ]}
         >
           {name}
@@ -65,7 +75,13 @@ const ListItem: React.FC<ListItemProps> = ({
           <Text numberOfLines={1} style={styles.description}>
             {description}
           </Text>
-          <Day date={dueDate.toISOString()} />
+          <Day
+            date={
+              dueDate instanceof Date && !isNaN(dueDate.getTime())
+                ? dueDate.toISOString()
+                : new Date().toISOString()
+            }
+          />
         </View>
       </View>
     </Pressable>
@@ -76,16 +92,16 @@ export default ListItem;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
     padding: RFValue(10),
     marginVertical: RFValue(6),
     borderRadius: RFValue(12),
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
 
     // shadow iOS
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3,
@@ -95,25 +111,25 @@ const styles = StyleSheet.create({
   },
   checkButton: {
     marginRight: RFValue(12),
-    padding: RFValue(5), 
-    borderRadius: RFValue(5), 
+    padding: RFValue(5),
+    borderRadius: RFValue(5),
   },
   textContainer: {
     flex: 1,
   },
   taskName: {
     fontSize: RFValue(14),
-    fontWeight: "600",
-    color: "#000",
+    fontWeight: '600',
+    color: '#000',
   },
   bottomRow: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: RFValue(2),
   },
   description: {
     fontSize: RFValue(10),
-    color: "#666",
+    color: '#666',
     flex: 1,
   },
 });
