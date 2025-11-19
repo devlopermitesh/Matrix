@@ -1,4 +1,4 @@
-package com.matrix
+package com.fourmatrix
 
 import android.app.Application
 import com.facebook.react.PackageList
