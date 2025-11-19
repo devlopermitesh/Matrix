@@ -57,9 +57,9 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           curl -H "Content-Type: application/json" \
-          -X POST \
-          -d "{\"embeds\":[{\"title\":\"❌ CI Pipeline Failed\",\"description\":\"Branch: \`${{ github.ref_name }}\`\\nCommit: \`${{ github.sha }}\`\\n[Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})\",\"color\":15158332}]}\" \
-          $DISCORD_WEBHOOK
+               -X POST \
+               -d "{\"embeds\": [{\"title\": \"❌ CI Pipeline Failed\", \"description\": \"Branch: \`${{ github.ref_name }}\`\\nCommit: \`${{ github.sha }}\`\\n[View Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})\", \"color\": 15158332}]}" \
+               $DISCORD_WEBHOOK
 
       - name: "🔔 Discord - Success"
         if: success()
@@ -67,9 +67,9 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           curl -H "Content-Type: application/json" \
-          -X POST \
-          -d "{\"embeds\":[{\"title\":\"✅ CI Passed\",\"description\":\"Branch: \`${{ github.ref_name }}\` - All checks passed!\",\"color\":3066993}]}\" \
-          $DISCORD_WEBHOOK
+               -X POST \
+               -d "{\"embeds\": [{\"title\": \"✅ CI Passed\", \"description\": \"Branch: \`${{ github.ref_name }}\` - All checks passed!\", \"color\": 3066993}]}" \
+               $DISCORD_WEBHOOK
 
 
   build-android:
@@ -99,15 +99,25 @@ jobs:
 
       - name: "📥 Install Android SDK + Accept Licenses + Install NDK"
         run: |
+          echo "📥 Installing cmdline-tools..."
+
+          # create folder
           mkdir -p "$ANDROID_HOME/cmdline-tools"
           cd "$ANDROID_HOME/cmdline-tools"
 
-          wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O tools.zip
-          unzip tools.zip -d latest
-          rm tools.zip
+          # Download latest command line tools
+          wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip
 
+          # Extract tools
+          unzip cmdline-tools.zip -d latest
+          rm cmdline-tools.zip
+
+          echo "📜 Accepting licenses..."
           yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses
+
+          echo "📦 Installing NDK..."
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;28.0.12674087"
+
 
       - name: "📱 Cache Gradle"
         uses: actions/cache@v4
@@ -136,11 +146,12 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           curl -H "Content-Type: application/json" \
-          -X POST \
-          -d "{\"embeds\":[{\"title\":\"❌ Android Build Failed\",\"description\":\"[Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})\",\"color\":15158332}]}\" \
-          $DISCORD_WEBHOOK
+               -X POST \
+               -d "{\"embeds\": [{\"title\": \"❌ Android Build Failed\", \"description\": \"[Logs Here](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})\", \"color\": 15158332}]}" \
+               $DISCORD_WEBHOOK
 
-
+ 
+  
   deploy:
     name: "Deploy to Play Store"
     runs-on: ubuntu-latest
