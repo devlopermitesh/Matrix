@@ -7,7 +7,14 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write **/*.{js,jsx,ts,tsx,json,css,md}",
+    "postinstall": "patch-package",
+    "detox:build": "npx detox build --configuration android.emu.debug",
+    "detox:test": "npx detox test --configuration android.emu.debug",
+    "detox:run": "npm run detox:build && npm run detox:test",
+    "prepare": "husky"
   },
   "dependencies": {
     "@dicebear/collection": "^9.2.4",
