@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: ["main"]
 
-# Cancel previous runs if a new one is triggered
+# Cancel previous runs if a new one is triggere
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
