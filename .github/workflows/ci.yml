@@ -99,18 +99,25 @@ jobs:
 
       - name: "📥 Install Android SDK + Accept Licenses + Install NDK"
         run: |
-          sudo mkdir -p "$ANDROID_HOME/cmdline-tools"
-          sudo rm -rf "$ANDROID_HOME/cmdline-tools/latest"
-          sudo mkdir -p "$ANDROID_HOME/cmdline-tools/latest"
+          echo "📥 Installing cmdline-tools..."
 
-          echo "📥 Installing latest cmdline-tools..."
-          sudo yes | sdkmanager --sdk_root=$ANDROID_HOME "cmdline-tools;latest"
+          # create folder
+          mkdir -p "$ANDROID_HOME/cmdline-tools"
+          cd "$ANDROID_HOME/cmdline-tools"
+
+          # Download latest command line tools
+          wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip
+
+          # Extract tools
+          unzip cmdline-tools.zip -d latest
+          rm cmdline-tools.zip
 
           echo "📜 Accepting licenses..."
-          yes | sudo $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses
 
-          echo "📦 Installing NDK 28..."
-          sudo $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "ndk;28.0.12674087"
+          echo "📦 Installing NDK..."
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;28.0.12674087"
+
 
       - name: "📱 Cache Gradle"
         uses: actions/cache@v4
