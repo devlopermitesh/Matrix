@@ -24,12 +24,14 @@ class DB {
   database_displayname = 'Matrics';
   database_size = 200000;
   constructor(database_name: string) {
-    (async () => await this.init())();
     this.database_name = database_name;
+    this.init();
   }
   private init = async (): Promise<boolean> => {
     const db = await this.getDBConnection();
     this.db = db;
+    await this.createTabletodos(db);
+
     if (!db) {
       return false;
     }
@@ -94,6 +96,7 @@ class DB {
     if (!this.db) {
       await this.init();
       console.log('db is not ready yet!❌');
+      return []
     }
     return await new Promise<Item[]>(resolve => {
       this.db!.transaction(tx => {

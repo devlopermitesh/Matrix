@@ -1,4 +1,4 @@
-package com.matrix;
+package com.fourmatrix;
 
 import com.wix.detox.Detox;
 import com.wix.detox.config.DetoxConfig;

@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.matrix.test">
+    package="com.fourmatrix.test">
 
     <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="35" />
 
     <instrumentation
         android:name="com.wix.detox.DetoxTestRunner"
-        android:targetPackage="com.matrix"
+        android:targetPackage="com.fourmatrix"
         android:label="Detox Tests" />
 
 </manifest>

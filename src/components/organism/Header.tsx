@@ -2,7 +2,7 @@ import { Image, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { navigate } from '../../navigation/Navigationutils';
 import TickIcon from '../../asset/Images/tickicon.png';
-import SettingsIcon from '../../asset/Images/settings.png';
+import SettingsIcon from '../../asset/Images/settingicon.png';
 const Header = () => {
   return (
     <View style={styles.container}>
