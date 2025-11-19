@@ -189,10 +189,14 @@ jobs:
           bundler-cache: true
           working-directory: android
 
-      - name: "🚀 Install Fastlane"
+      - name: "💎 Setup Fastlane Environment"
+        working-directory: android
         run: |
-          cd android
+          bundle config unset deployment || true
+          bundle lock --add-platform x86_64-linux
+          bundle lock --add-platform ruby
           bundle config set --local path 'vendor/bundle'
+          bundle config set --local deployment true
           bundle install
 
       - name: "🔐 Setup Google Play Credentials"
