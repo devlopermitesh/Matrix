@@ -222,17 +222,32 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          curl -H "Content-Type: application/json" \
-          -X POST \
-          -d "{\"embeds\":[{\"title\":\"❌ Deploy Failed\",\"description\":\"[Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})\",\"color\":15158332}]}\" \
-          $DISCORD_WEBHOOK
+          curl -H "Content-Type: application/json" -X POST -d @- $DISCORD_WEBHOOK <<'EOF'
+          {
+            "embeds": [
+              {
+                "title": "❌ Deploy Failed",
+                "description": "[Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+                "color": 15158332
+              }
+            ]
+          }
+          EOF
 
       - name: "🔔 Discord - Success"
         if: success()
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          curl -H "Content-Type: application/json" \
-          -X POST \
-          -d "{\"embeds\":[{\"title\":\"✅ Deployed Successfully\",\"description\":\"App pushed to Play Store! 🎉\",\"color\":3066993}]}\" \
-          $DISCORD_WEBHOOK
+          curl -H "Content-Type: application/json" -X POST -d @- $DISCORD_WEBHOOK <<'EOF'
+          {
+            "embeds": [
+              {
+                "title": "✅ Deployed Successfully",
+                "description": "App pushed to Play Store! 🎉",
+                "color": 3066993
+              }
+            ]
+          }
+          EOF
+            
