@@ -6,6 +6,19 @@ import notifee, {
   TriggerType,
 } from '@notifee/react-native';
 import logo from '../asset/Images/logo.png';
+
+import { createNotificationChannel } from './notitificationintial';
+
+let cachedChannelId: string | null = null;
+
+export const getNotificationChannel = async () => {
+  if (!cachedChannelId) {
+    cachedChannelId = await createNotificationChannel();
+  }
+  return cachedChannelId;
+};
+
+
 export const createTimestampNotification = async (
   imageUrl: string,
   title: string,
@@ -13,27 +26,36 @@ export const createTimestampNotification = async (
   triggerDate: Date,
   notificationId: string,
 ) => {
+  try {
+   
   const trigger: TimestampTrigger = {
     type: TriggerType.TIMESTAMP,
-    timestamp: Date.now() + 60 * 3000,
+    timestamp: Date.now() + 60 * 1000,
     repeatFrequency: RepeatFrequency.NONE,
     alarmManager: true,
   };
   const action: AndroidAction = {
     title: 'View Details',
     pressAction: {
-      id: 'view details',
+      id: 'view_details',
       launchActivity: 'default',
     },
   };
+  const channelId = await getNotificationChannel();
+
+
   await notifee.createTriggerNotification(
     {
       id: notificationId,
       title,
       body,
       android: {
-        channelId: 'default',
+        channelId: channelId,
         sound: 'notification',
+        fullScreenAction: {
+       id: 'view_details',
+       launchActivity: 'default',
+       },
         onlyAlertOnce: true,
         smallIcon: 'icon',
         style: {
@@ -47,5 +69,8 @@ export const createTimestampNotification = async (
   );
 
   const checklog = async () => await notifee.getTriggerNotifications();
-  console.log('🔍 Scheduled Triggers:', await checklog());
+  console.log('🔍 Scheduled Triggers:', await checklog()); 
+  } catch (error) {
+  console.error('Failed to create notification', error);
+  }
 };
