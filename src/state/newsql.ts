@@ -94,9 +94,9 @@ class DB {
 
   public getTodos = async (): Promise<Item[]> => {
     if (!this.db) {
+    console.log("⏳ Waiting for DB to be ready...");
       await this.init();
-      console.log('db is not ready yet!❌');
-      return []
+
     }
     return await new Promise<Item[]>(resolve => {
       this.db!.transaction(tx => {
