@@ -4,7 +4,8 @@ import {
 } from '@react-navigation/native';
 import { StackScreen } from '../navigation/router';
 
-export const navigationRef = createNavigationContainerRef();
+export const navigationRef = createNavigationContainerRef<StackScreen>();
+
 export async function navigate(route: keyof StackScreen, params?: object) {
   navigationRef.isReady();
   if (navigationRef.isReady()) {

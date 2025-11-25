@@ -30,7 +30,7 @@ export const createTimestampNotification = async (
    
   const trigger: TimestampTrigger = {
     type: TriggerType.TIMESTAMP,
-    timestamp: Date.now() + 60 * 1000,
+    timestamp: triggerDate.getTime(),
     repeatFrequency: RepeatFrequency.NONE,
     alarmManager: true,
   };
