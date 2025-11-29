@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { User } from '../../state/userState';
 import Avatar from '../atoms/Avatar';
@@ -7,12 +7,13 @@ import { ThemeColors } from '../../constant/theme';
 
 interface AvatarDetailsProps {
   user: User | null;
+  onPress:()=>void;
 }
 
-const AvatarDetails: React.FC<AvatarDetailsProps> = ({ user }) => {
+const AvatarDetails: React.FC<AvatarDetailsProps> = ({ user ,onPress }) => {
   const styles=useThemedStyles(stylesCreator)
   return (
-    <View testID={'avatar'} style={styles.rowContainer}>
+    <Pressable testID={'avatar'} style={styles.rowContainer} onPress={onPress} >
       <Avatar name={user?.username ?? 'random'} size={60} />
 
       <View style={styles.colContainer}>
@@ -21,7 +22,7 @@ const AvatarDetails: React.FC<AvatarDetailsProps> = ({ user }) => {
           {user?.punchLine ?? 'No punchline yet ✨'}
         </Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

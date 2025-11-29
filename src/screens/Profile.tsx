@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import CustomeSafeAreaView from '../components/atoms/CustomeSafeAreaView';
 import Icon from '../components/atoms/Icon';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -16,11 +16,14 @@ import AppranceCollection from '../components/organism/AppranceCollection';
 import { ThemeColors } from '../constant/theme';
 import { useThemedStyles } from '../utils/useThemedStyles';
 import { useTheme } from '../utils/ThemeContext';
+import ProfileModel from '../components/moleculers/profilemodel';
 
 const Profile = () => {
-  const { user } = useAccount();
+  const { user ,updateProfile} = useAccount();
   const {isDark}=useTheme()
   const styles=useThemedStyles(stylesCreator)
+    const [visible, setVisible] = useState(false);
+  
   return (
     <CustomeSafeAreaView style={styles.bgColor}>
       {/* Header */}
@@ -45,9 +48,21 @@ const Profile = () => {
 
       {/* Content */}
       <ScrollView contentContainerStyle={styles.content}>
-        <AvatarDetails user={user} />
+        <AvatarDetails user={user}  onPress={()=>setVisible((prev)=>!prev)}/>
         <AppranceCollection />
       </ScrollView>
+
+            {visible && (
+        <ProfileModel
+          predata={user?? undefined}
+          visible={visible}
+          model_title="Tagline"
+          onClose={() => setVisible(false)}
+          onSave={(data)=>{
+           updateProfile(data)
+          }}
+        />
+      )}
     </CustomeSafeAreaView>
   );
 };
