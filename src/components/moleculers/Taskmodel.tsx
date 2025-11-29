@@ -16,6 +16,8 @@ import { useForm, Controller } from 'react-hook-form';
 import Icon from '../atoms/Icon';
 import { Categories } from '../../data/constant';
 import { Calendar } from 'react-native-calendars';
+import { ThemeColors } from '../../constant/theme';
+import { useThemedStyles } from '../../utils/useThemedStyles';
 
 export interface Item {
   id: string;
@@ -44,7 +46,6 @@ const TaskModal: FC<{
     Categories.urgentImportant,
   );
   const [showCalendar, setShowCalendar] = useState(false);
-
   const {
     control,
     handleSubmit,
@@ -79,6 +80,9 @@ const TaskModal: FC<{
     reset();
     onClose();
   };
+
+   const styles=useThemedStyles(stylesCreator)
+
 
   return (
     <Modal
@@ -214,7 +218,7 @@ const TaskModal: FC<{
                           style={styles.dateInputContainer}
                           onPress={() => setShowCalendar(true)}
                         >
-                          <Text style={{ color: value ? '#000' : '#999' }}>
+                          <Text style={value?styles.datevaluecolor:styles.dateplacecolor}>
                             {value || 'Select due date'}
                           </Text>
                           <Icon
@@ -291,7 +295,7 @@ const TaskModal: FC<{
   );
 };
 
-const styles = StyleSheet.create({
+const stylesCreator=(colors:ThemeColors) => StyleSheet.create({
   modalContainer: {
     flex: 1,
     justifyContent: 'flex-end',
@@ -306,7 +310,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalContent: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.formbackground,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingHorizontal: 24,
@@ -322,13 +326,13 @@ const styles = StyleSheet.create({
   closeIcon: {
     width: 40,
     height: 4,
-    backgroundColor: '#E0E0E0',
+    backgroundColor: colors.closeIcon,
     borderRadius: 2,
   },
   title: {
     fontSize: 24,
     fontWeight: '600',
-    color: '#333',
+    color: colors.formheading,
     marginBottom: 24,
   },
   inputContainer: {
@@ -337,29 +341,31 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#666',
+    color: colors.label,
     marginBottom: 8,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: colors.inputborder,
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 12,
+    color:colors.text,
     fontSize: 16,
-    backgroundColor: '#F9F9F9',
+    backgroundColor:colors.inputbg,
   },
   inputError: {
     borderColor: '#FF6B6B',
   },
   textAreaInput: {
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: colors.inputborder,
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 12,
     fontSize: 16,
-    backgroundColor: '#F9F9F9',
+    color:colors.text,
+    backgroundColor:colors.inputbg,
     minHeight: 100,
     textAlignVertical: 'top',
   },
@@ -383,7 +389,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     flexWrap: 'wrap',
     justifyContent: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: colors.quandartBG,
     alignItems: 'center',
     width: '48%', // 2 columns
     padding: 8,
@@ -394,7 +400,7 @@ const styles = StyleSheet.create({
   quadrantButtonText: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#666',
+    color: colors.label,
   },
   quadrantButtonTextActive: {
     color: '#fff',
@@ -418,13 +424,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 14,
     borderRadius: 8,
-    backgroundColor: '#F5F5F5',
+    backgroundColor:colors.quandartBG,
     alignItems: 'center',
   },
   cancelButtonText: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#666',
+    color: colors.label,
   },
   saveButton: {
     flex: 1,
@@ -448,7 +454,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   calendarWrapper: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
     borderRadius: 12,
     padding: 16,
     width: '90%',
@@ -459,12 +465,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor:colors.inputborder,
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#F9F9F9',
+    backgroundColor: colors.inputbg
   },
+  datevaluecolor:{
+  color:colors.text
+  },
+  dateplacecolor:{
+     color:  '#999' 
+  }
 });
 
 export default TaskModal;

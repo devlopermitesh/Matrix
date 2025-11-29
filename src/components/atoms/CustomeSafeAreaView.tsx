@@ -1,10 +1,10 @@
-import { StatusBar } from 'react-native';
+import { StatusBar, ViewStyle } from 'react-native';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const CustomeSafeAreaView = ({ children }: { children: React.ReactNode }) => {
+const CustomeSafeAreaView = ({ children,style }: {  style?: ViewStyle, children: React.ReactNode }) => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={[{height:"100%"},style]}>
       <StatusBar />
       {children}
     </SafeAreaView>

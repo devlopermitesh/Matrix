@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, ViewStyle } from 'react-native';
 import React from 'react';
+import { ThemeColors } from '../../constant/theme';
+import { useThemedStyles } from '../../utils/useThemedStyles';
 
 interface ApprenceItemProps {
   title: string;
@@ -14,6 +16,7 @@ const ApprenceItem: React.FC<ApprenceItemProps> = ({
   style,
   testID,
 }) => {
+  const styles=useThemedStyles(stylesCreator)
   return (
     <View testID={testID} style={styles.colStyle}>
       <Text style={styles.title}>{title}</Text>
@@ -26,16 +29,16 @@ const ApprenceItem: React.FC<ApprenceItemProps> = ({
 
 export default ApprenceItem;
 
-const styles = StyleSheet.create({
+const stylesCreator=(colors:ThemeColors)=> StyleSheet.create({
   colStyle: {
     flexDirection: 'column',
     gap: 12,
     marginVertical: 4,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background,
     borderRadius: 20,
     padding: 10,
     // Shadow for iOS
-    shadowColor: '#000',
+    shadowColor: colors.text,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 4,
@@ -46,19 +49,19 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#333',
+    color:colors.cardlabel,
   },
   itemOption: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#ffffff',
+    backgroundColor:colors.background,
 
     borderRadius: 16,
     paddingHorizontal: 16,
     paddingVertical: 12,
     // Shadow for iOS
-    shadowColor: '#000',
+    shadowColor: colors.text,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 4,

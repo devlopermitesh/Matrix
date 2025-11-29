@@ -7,12 +7,14 @@ import { useTodos } from '../state/todos';
 import { Categories, CategoryTitles, Item } from '../data/constant';
 import PlusButton from '../components/atoms/PlusButton';
 import TaskModal from '../components/moleculers/Taskmodel';
+import { useThemedStyles } from '../utils/useThemedStyles';
+import { ThemeColors } from '../constant/theme';
 
 const Home = () => {
   const { todos, setData, newtodo } = useTodos();
   const [visible, setVisible] = useState(false);
 
-
+ const styles=useThemedStyles(styleCreator)
   
   useEffect(() => {
     (async () => {
@@ -21,7 +23,7 @@ const Home = () => {
   }, []); // run only once on mount
 
   return (
-    <CustomeSafeAreaView>
+    <CustomeSafeAreaView style={styles.bgColor}>
       <Header />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {Object.keys(todos).map(category => (
@@ -63,11 +65,15 @@ const Home = () => {
 };
 
 export default Home;
-
-const styles = StyleSheet.create({
+const styleCreator=(colors:ThemeColors)=>{
+return  StyleSheet.create({
+  bgColor:{
+    backgroundColor:colors.spacebackground
+  },
   scrollContainer: {
     padding: 16,
     paddingBottom: 50,
+    backgroundColor:colors.spacebackground,
   },
   floatingButton: {
     position: 'absolute',
@@ -75,3 +81,5 @@ const styles = StyleSheet.create({
     right: 30,
   },
 });
+
+}

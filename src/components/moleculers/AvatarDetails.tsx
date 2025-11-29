@@ -2,12 +2,15 @@ import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { User } from '../../state/userState';
 import Avatar from '../atoms/Avatar';
+import { useThemedStyles } from '../../utils/useThemedStyles';
+import { ThemeColors } from '../../constant/theme';
 
 interface AvatarDetailsProps {
   user: User | null;
 }
 
 const AvatarDetails: React.FC<AvatarDetailsProps> = ({ user }) => {
+  const styles=useThemedStyles(stylesCreator)
   return (
     <View testID={'avatar'} style={styles.rowContainer}>
       <Avatar name={user?.username ?? 'random'} size={60} />
@@ -24,14 +27,14 @@ const AvatarDetails: React.FC<AvatarDetailsProps> = ({ user }) => {
 
 export default AvatarDetails;
 
-const styles = StyleSheet.create({
+const stylesCreator=(colors:ThemeColors)=> StyleSheet.create({
   rowContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor:colors.background,
     borderRadius: 12,
-    shadowColor: '#000',
+    shadowColor:colors.text,
     shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 2,
@@ -45,11 +48,11 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#222',
+    color: colors.text,
   },
   punchLine: {
     fontSize: 14,
-    color: '#666',
+    color:colors.label,
     marginTop: 2,
   },
 });

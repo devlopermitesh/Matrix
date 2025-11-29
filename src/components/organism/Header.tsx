@@ -3,7 +3,10 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { navigate } from '../../navigation/Navigationutils';
 import TickIcon from '../../asset/Images/tickicon.png';
 import SettingsIcon from '../../asset/Images/settingicon.png';
+import { ThemeColors } from '../../constant/theme';
+import { useThemedStyles } from '../../utils/useThemedStyles';
 const Header = () => {
+  const styles = useThemedStyles(stylesCreator);
   return (
     <View style={styles.container}>
       {/* Left Section */}
@@ -36,18 +39,19 @@ const Header = () => {
 
 export default Header;
 
-const styles = StyleSheet.create({
+const stylesCreator = (colors:ThemeColors) =>{
+  return  StyleSheet.create({
   container: {
     flexDirection: 'row',
     width: '100%',
     height: RFValue(50),
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: RFValue(12),
 
     // shadow for iOS
-    shadowColor: '#000',
+    shadowColor:colors.background,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
@@ -63,7 +67,7 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: '700',
     fontSize: RFValue(18),
-    color: '#000',
+    color: colors.text,
   },
   settingIcon: {
     height: RFValue(26),
@@ -71,3 +75,5 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
 });
+
+}

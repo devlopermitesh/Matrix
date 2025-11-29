@@ -13,12 +13,16 @@ import { goBack } from '../navigation/Navigationutils';
 import AvatarDetails from '../components/moleculers/AvatarDetails';
 import useAccount from '../state/userState';
 import AppranceCollection from '../components/organism/AppranceCollection';
+import { ThemeColors } from '../constant/theme';
+import { useThemedStyles } from '../utils/useThemedStyles';
+import { useTheme } from '../utils/ThemeContext';
 
 const Profile = () => {
   const { user } = useAccount();
-
+  const {isDark}=useTheme()
+  const styles=useThemedStyles(stylesCreator)
   return (
-    <CustomeSafeAreaView>
+    <CustomeSafeAreaView style={styles.bgColor}>
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
@@ -30,7 +34,7 @@ const Profile = () => {
         >
           <Icon
             name="angle-left"
-            color="#333"
+            color={isDark ?"#fff":"#333"}
             size={RFValue(22)}
             iconType="font-awesome"
           />
@@ -50,7 +54,10 @@ const Profile = () => {
 
 export default Profile;
 
-const styles = StyleSheet.create({
+const stylesCreator=(colors:ThemeColors)=> StyleSheet.create({
+    bgColor:{
+    backgroundColor:colors.spacebackground
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -59,11 +66,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: RFValue(16),
     paddingVertical: RFValue(12),
 
-    backgroundColor: '#fff',
+    backgroundColor:colors.background,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#ddd',
-
-    shadowColor: '#000',
+    borderBottomColor:colors.shadow,
+    shadowColor:colors.border,
     shadowOpacity: 0.05,
     shadowRadius: 3,
     elevation: 2,
@@ -75,7 +81,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: RFValue(16),
     fontWeight: '600',
-    color: '#000',
+    color:colors.text,
   },
   content: {
     paddingHorizontal: RFValue(16),

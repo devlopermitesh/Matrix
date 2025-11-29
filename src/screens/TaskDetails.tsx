@@ -14,6 +14,9 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { useTodos } from '../state/todos';
 import TaskModal from '../components/moleculers/Taskmodel';
 import { goBack, navigate } from '../navigation/Navigationutils';
+import { ThemeColors } from '../constant/theme';
+import { useThemedStyles } from '../utils/useThemedStyles';
+import { useTheme } from '../utils/ThemeContext';
 
 type TaskDetailRouteProp = RouteProp<Record<string, Item>, string>;
 interface TaskDetailProps {
@@ -30,15 +33,17 @@ const TaskDetail: React.FC<TaskDetailProps> = props => {
     route.params as Item;
 
   const [isCompleted, setIsCompleted] = useState(iscompleted);
+  const {isDark}=useTheme()
+  const styles=useThemedStyles(stylesCreator)
 
   return (
-    <CustomeSafeAreaView>
+    <CustomeSafeAreaView style={styles.bgColor}>
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => goBack()}>
           <Icon
             name="angle-left"
-            color="#333"
+            color={isDark?"#fff":"#333"}
             size={RFValue(22)}
             iconType="font-awesome"
           />
@@ -143,7 +148,10 @@ const TaskDetail: React.FC<TaskDetailProps> = props => {
 
 export default TaskDetail;
 
-const styles = StyleSheet.create({
+const stylesCreator=(colors:ThemeColors)=>StyleSheet.create({
+  bgColor:{
+  backgroundColor:colors.spacebackground
+  },
   header: {
     paddingHorizontal: RFValue(16),
     paddingVertical: RFValue(10),
@@ -155,7 +163,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: RFValue(20),
     fontWeight: '700',
-    color: '#000',
+    color:colors.text,
     marginBottom: RFValue(6),
   },
   category: {
@@ -170,15 +178,15 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: RFValue(12),
-    color: '#555',
+    color:colors.label,
     marginLeft: RFValue(6),
   },
   descriptionBox: {
-    backgroundColor: '#fff',
+    backgroundColor:colors.background,
     borderRadius: RFValue(10),
     padding: RFValue(12),
     marginBottom: RFValue(20),
-    shadowColor: '#000',
+    shadowColor: colors.text,
     shadowOpacity: 0.05,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 3,
@@ -188,11 +196,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: RFValue(13),
     marginBottom: RFValue(6),
-    color: '#000',
+    color: colors.text,
   },
   description: {
     fontSize: RFValue(12),
-    color: '#444',
+    color: colors.emptytext,
     lineHeight: RFValue(18),
   },
   buttonContainer: {
@@ -202,14 +210,14 @@ const styles = StyleSheet.create({
   },
   editButton: {
     flex: 1,
-    backgroundColor: '#eee',
+    backgroundColor: colors.boxbackground,
     paddingVertical: RFValue(10),
     borderRadius: RFValue(8),
     alignItems: 'center',
     marginRight: RFValue(10),
   },
   editText: {
-    color: '#555',
+    color: colors.emptytext,
     fontWeight: '600',
   },
   completeButton: {

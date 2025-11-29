@@ -16,6 +16,7 @@ import {
 import { setCategories } from './notification/notitificationintial';
 import { useEffect } from 'react';
 import { navigate } from './navigation/Navigationutils';
+import { ThemeProvider } from './utils/ThemeContext';
 
 function App() {
   const persmissionChecks = async () => {
@@ -42,7 +43,9 @@ function App() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar />
+          <ThemeProvider>
       <Routes />
+          </ThemeProvider>
     </SafeAreaView>
   );
 }
