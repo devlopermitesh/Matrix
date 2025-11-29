@@ -70,11 +70,21 @@ const TaskModal: FC<{
     },
   ];
 
-  const onSubmit = (data: TaskFormData) => {
-    onSave(data);
-    reset();
-    onClose();
-  };
+const onSubmit = async (data: TaskFormData) => {
+ 
+  const updatedData:TaskFormData=predata ? {
+  title: predata.name,
+  description:predata.description,
+  quadrant: Number(Categories[predata.category]),
+  dueDate:predata.dueDate.toString()
+  }:data
+
+  await onSave(updatedData);
+  reset();
+  onClose();
+
+};
+
 
   const handleClose = () => {
     reset();
