@@ -54,6 +54,7 @@ export const useTodos = create<TodosState>((set, get) => ({
     const data = await dbInstance.updateTodo(id, item);
     await get().setData();
     if (data) {
+      console.log("Going to update notify data",data)
       await trigger.updatenotify(
         id,
         data.name,
@@ -63,8 +64,12 @@ export const useTodos = create<TodosState>((set, get) => ({
     }
   },
   deleteTodo: async (id: string) => {
+    
     await dbInstance.deleteTodo(id);
     await get().setData();
+    
+    // small delay to allow native module to flush
+    await new Promise(res => setTimeout(res, 50));
     await trigger.deletenotify(id);
   },
 }));

@@ -135,6 +135,8 @@ const TaskDetail: React.FC<TaskDetailProps> = props => {
               category: data.quadrant,
               iscompleted: false,
             };
+            console.log("update Todo",item)
+
             //update funciton to update task
             await updateTodos(id, item);
             setVisible(false);

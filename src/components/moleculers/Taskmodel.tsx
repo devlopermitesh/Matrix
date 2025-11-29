@@ -11,7 +11,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Icon from '../atoms/Icon';
 import { Categories } from '../../data/constant';
@@ -42,9 +42,23 @@ const TaskModal: FC<{
   predata?: Item;
   onSave: (data: TaskFormData) => void;
 }> = ({ visible, onClose, onSave, model_title, predata }) => {
-  const [activeCategory, setActiveCategory] = useState(
-    Categories.urgentImportant,
+
+  // Helper function to convert category to enum number
+    const getCategoryValue = (category: number|string): Categories => {
+    if (typeof category === 'number') {
+      return category as Categories;
+    }
+    if (typeof category === 'string') {
+      return Categories[category as keyof typeof Categories] ?? Categories.urgentImportant;
+    }
+    return Categories.urgentImportant;
+  };
+
+
+  const [activeCategory, setActiveCategory] = useState<Categories>(
+    predata ? getCategoryValue(predata.category) : Categories.urgentImportant
   );
+
   const [showCalendar, setShowCalendar] = useState(false);
   const {
     control,
@@ -55,7 +69,7 @@ const TaskModal: FC<{
     defaultValues: {
       title: predata?.name ?? '',
       description: predata?.description ?? '',
-      quadrant: predata?.category ?? Categories.urgentImportant,
+      quadrant: predata ? getCategoryValue(predata.category) : Categories.urgentImportant,
       dueDate: predata?.dueDate.toString() ?? '',
     },
   });
@@ -70,16 +84,9 @@ const TaskModal: FC<{
     },
   ];
 
-const onSubmit = async (data: TaskFormData) => {
- 
-  const updatedData:TaskFormData=predata ? {
-  title: predata.name,
-  description:predata.description,
-  quadrant: Number(Categories[predata.category]),
-  dueDate:predata.dueDate.toString()
-  }:data
 
-  await onSave(updatedData);
+const onSubmit = async (data: TaskFormData) => {
+  await onSave(data);
   reset();
   onClose();
 
@@ -91,7 +98,19 @@ const onSubmit = async (data: TaskFormData) => {
     onClose();
   };
 
-   const styles=useThemedStyles(stylesCreator)
+  // Set active category and form value when predata changes
+  useEffect(() => {
+    if (predata) {
+      const categoryValue = getCategoryValue(predata.category);
+      setActiveCategory(categoryValue);
+    }
+  }, [predata,]);
+
+  
+  
+  const styles=useThemedStyles(stylesCreator)
+
+
 
 
   return (

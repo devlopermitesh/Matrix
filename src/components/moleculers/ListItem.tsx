@@ -11,11 +11,11 @@ import { ThemeColors } from '../../constant/theme';
 import { useThemedStyles } from '../../utils/useThemedStyles';
 
 interface ListItemProps {
-  item: Item;
+  item: Item & {due_date?:string};
 }
 
 const ListItem: React.FC<ListItemProps> = ({
-  item: { id, name, iscompleted, description, dueDate, category },
+  item: { id, name, iscompleted, description, dueDate, category ,due_date},
 }) => {
   const { markStatusChange } = useTodos();
 
@@ -34,7 +34,7 @@ const ListItem: React.FC<ListItemProps> = ({
             name,
             iscompleted,
             description,
-            dueDate,
+            dueDate:due_date,
             category,
           });
         } catch (error) {

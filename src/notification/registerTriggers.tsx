@@ -37,6 +37,9 @@ class Trigger {
         notification.notification.id ===
         `${this.TODOS_NOTIFICATION_REMINDER}-${id}`
       ) {
+        
+       // small delay to allow native module to flush
+        await new Promise(res => setTimeout(res, 50));
         await notifee.cancelNotification(notification.notification.id);
       }
     }
@@ -48,6 +51,9 @@ class Trigger {
     triggerDate: Date,
   ) => {
     await this.deletenotify(id);
+  // small delay to allow native module to flush
+  await new Promise(res => setTimeout(res, 50));
+
     await this.setnotify(title, body, triggerDate, id);
   };
 }

@@ -55,6 +55,7 @@ const Home = () => {
               category: data.quadrant,
               iscompleted: false,
             };
+            console.log("NEw Todo",item)
             await newtodo(item);
             setVisible(false);
           }}
