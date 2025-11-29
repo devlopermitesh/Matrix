@@ -1,5 +1,5 @@
 import { TouchableOpacity } from 'react-native';
-import React, {  useState } from 'react';
+import React from 'react';
 import ApprenceItem from '../moleculers/ApprenceItem';
 import Icontitle from '../atoms/Icontitle';
 import { AppranceCollectionData, ButtonThemeType } from '../../data/constant';
@@ -8,14 +8,15 @@ import SmoothToggle from '../atoms/NormalToggle';
 import Icon from '../atoms/Icon';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useTheme } from '../../utils/ThemeContext';
+import useAccount from '../../state/userState';
 
 
 const AppranceCollection = () => {
   
   const { isDark, toggleTheme } = useTheme();
+  const {toggleNotification,NotificationOn}=useAccount()
 
 
-  const [isOn, setIsOn] = useState(true);
 
 
 
@@ -35,8 +36,8 @@ const AppranceCollection = () => {
           <SmoothToggle
             testId="normal-toggle"
             size="small"
-            isOn={isOn}
-            onPress={() => setIsOn(pre => !pre)}
+            isOn={NotificationOn}
+            onPress={toggleNotification}
           />
         );
       case 'checkOut':

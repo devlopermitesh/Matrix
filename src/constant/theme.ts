@@ -34,7 +34,7 @@ const lightColors = {
   label:"#666",
   quandartBG:'#F5F5F5',
   shadow:"#ddd",
-  cartlabel:"#000",
+  cardlabel:"#000",
   overlay: "#0c0c0cff"
 
 };

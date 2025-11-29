@@ -27,7 +27,19 @@ export const createTimestampNotification = async (
   notificationId: string,
 ) => {
   try {
-   
+       // Check if the trigger date is in the past
+    const now = Date.now();
+    const triggerTime = triggerDate.getTime();
+    
+    if (triggerTime <= now) {
+      console.log('⏰ Notification time is in the past, skipping silently:', {
+        notificationId,
+        triggerDate: triggerDate.toISOString(),
+        currentTime: new Date(now).toISOString(),
+      });
+      return; // Silently return without creating notification
+    }
+
   const trigger: TimestampTrigger = {
     type: TriggerType.TIMESTAMP,
     timestamp: triggerDate.getTime(),

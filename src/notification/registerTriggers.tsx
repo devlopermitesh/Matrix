@@ -16,6 +16,7 @@ class Trigger {
     const { NotificationOn } = useAccount.getState();
     console.log('Creating new notification ', title, triggerDate, id);
     if (!NotificationOn) {
+      
       console.log('🔕 Notifications are disabled');
       return;
     }
