@@ -14,13 +14,10 @@ class Trigger {
     id: string,
   ) => {
     const { NotificationOn } = useAccount.getState();
-    console.log('Creating new notification ', title, triggerDate, id);
     if (!NotificationOn) {
       
-      console.log('🔕 Notifications are disabled');
       return;
     }
-    console.log('Creating a new notification');
     await createTimestampNotification(
       keepgoing,
       title,

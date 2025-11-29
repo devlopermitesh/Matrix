@@ -22,7 +22,6 @@ export const useTodos = create<TodosState>((set, get) => ({
 
   setData: async () => {
     const response = await dbInstance.getTodos();
-    console.log('Response', response);
     // Dynamically group by category
     const groupedTodos = Object.keys(Categories)
       .filter(key => isNaN(Number(key))) // sirf string keys
@@ -54,7 +53,6 @@ export const useTodos = create<TodosState>((set, get) => ({
     const data = await dbInstance.updateTodo(id, item);
     await get().setData();
     if (data) {
-      console.log("Going to update notify data",data)
       await trigger.updatenotify(
         id,
         data.name,

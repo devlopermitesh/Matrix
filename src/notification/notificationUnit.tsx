@@ -80,8 +80,6 @@ export const createTimestampNotification = async (
     trigger,
   );
 
-  const checklog = async () => await notifee.getTriggerNotifications();
-  console.log('🔍 Scheduled Triggers:', await checklog()); 
   } catch (error) {
   console.error('Failed to create notification', error);
   }
