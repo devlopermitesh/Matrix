@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import CustomeSafeAreaView from '../components/atoms/CustomeSafeAreaView';
 import Icon from '../components/atoms/Icon';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -13,12 +13,19 @@ import { goBack } from '../navigation/Navigationutils';
 import AvatarDetails from '../components/moleculers/AvatarDetails';
 import useAccount from '../state/userState';
 import AppranceCollection from '../components/organism/AppranceCollection';
+import { ThemeColors } from '../constant/theme';
+import { useThemedStyles } from '../utils/useThemedStyles';
+import { useTheme } from '../utils/ThemeContext';
+import ProfileModel from '../components/moleculers/profilemodel';
 
 const Profile = () => {
-  const { user } = useAccount();
-
+  const { user ,updateProfile} = useAccount();
+  const {isDark}=useTheme()
+  const styles=useThemedStyles(stylesCreator)
+    const [visible, setVisible] = useState(false);
+  
   return (
-    <CustomeSafeAreaView>
+    <CustomeSafeAreaView style={styles.bgColor}>
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
@@ -30,7 +37,7 @@ const Profile = () => {
         >
           <Icon
             name="angle-left"
-            color="#333"
+            color={isDark ?"#fff":"#333"}
             size={RFValue(22)}
             iconType="font-awesome"
           />
@@ -41,16 +48,31 @@ const Profile = () => {
 
       {/* Content */}
       <ScrollView contentContainerStyle={styles.content}>
-        <AvatarDetails user={user} />
+        <AvatarDetails user={user}  onPress={()=>setVisible((prev)=>!prev)}/>
         <AppranceCollection />
       </ScrollView>
+
+            {visible && (
+        <ProfileModel
+          predata={user?? undefined}
+          visible={visible}
+          model_title="Tagline"
+          onClose={() => setVisible(false)}
+          onSave={(data)=>{
+           updateProfile(data)
+          }}
+        />
+      )}
     </CustomeSafeAreaView>
   );
 };
 
 export default Profile;
 
-const styles = StyleSheet.create({
+const stylesCreator=(colors:ThemeColors)=> StyleSheet.create({
+    bgColor:{
+    backgroundColor:colors.spacebackground
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -59,11 +81,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: RFValue(16),
     paddingVertical: RFValue(12),
 
-    backgroundColor: '#fff',
+    backgroundColor:colors.background,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#ddd',
-
-    shadowColor: '#000',
+    borderBottomColor:colors.shadow,
+    shadowColor:colors.border,
     shadowOpacity: 0.05,
     shadowRadius: 3,
     elevation: 2,
@@ -75,7 +96,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: RFValue(16),
     fontWeight: '600',
-    color: '#000',
+    color:colors.text,
   },
   content: {
     paddingHorizontal: RFValue(16),

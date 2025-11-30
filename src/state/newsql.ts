@@ -57,7 +57,6 @@ class DB {
           reject(err);
         },
         () => {
-          console.log('✅ Table ready');
           resolve();
         },
       );
@@ -94,7 +93,6 @@ class DB {
 
   public getTodos = async (): Promise<Item[]> => {
     if (!this.db) {
-    console.log("⏳ Waiting for DB to be ready...");
       await this.init();
 
     }

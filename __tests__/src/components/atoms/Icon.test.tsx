@@ -1,7 +1,6 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
 import Icon from '../../../../src/components/atoms/Icon';
-
+import { render } from '../../../../src/testUtils/test-utils';
 // Mock react-native-vector-icons (otherwise it will try to load native font files)
 jest.mock('react-native-vector-icons/MaterialIcons', () => 'MaterialIcon');
 jest.mock(

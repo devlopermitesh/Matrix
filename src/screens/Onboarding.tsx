@@ -12,9 +12,11 @@ import {
 } from 'react-native';
 import React, { JSX, useRef } from 'react';
 import { slides } from '../data/constant';
-import { navigate } from '../navigation/Navigationutils';
+import { navigate} from '../navigation/Navigationutils';
+import useAccount from '../state/userState';
 
 const OnBoarding = () => {
+  const {firstVisit,visited}=useAccount()
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const ref = useRef<FlatList>(null);
   const { width, height } = useWindowDimensions();
@@ -85,6 +87,14 @@ const OnBoarding = () => {
       ref.current?.scrollToOffset({ offset: width * (slides.length - 1) });
     };
 
+    const startApp=()=>{
+    visited()
+   if (!firstVisit) {
+    navigate("Home")
+}
+
+    }
+
     return (
       <View
         style={{
@@ -125,7 +135,7 @@ const OnBoarding = () => {
                   { backgroundColor: 'skyblue' },
                   { borderColor: 'white', borderWidth: 1, borderRadius: 40 },
                 ]}
-                onPress={() => navigate('Home')}
+                onPress={startApp}
               >
                 <Text
                   style={{ fontWeight: 'bold', fontSize: 15, color: '#ffff' }}

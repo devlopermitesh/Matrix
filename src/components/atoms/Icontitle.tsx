@@ -5,6 +5,8 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import bellImg from '../../asset/Images/bell.png';
 import infoImg from '../../asset/Images/info.png';
 import themeImg from '../../asset/Images/theme.png';
+import { useThemedStyles } from '../../utils/useThemedStyles';
+import { ThemeColors } from '../../constant/theme';
 
 interface IconTitleProps {
   name: string;
@@ -13,6 +15,7 @@ interface IconTitleProps {
 }
 
 const Icontitle: React.FC<IconTitleProps> = ({ Icontype, name, style }) => {
+  const styles=useThemedStyles(stylesCreator);
   const getImage = () => {
     switch (Icontype) {
       case 'bell':
@@ -41,16 +44,16 @@ const Icontitle: React.FC<IconTitleProps> = ({ Icontype, name, style }) => {
 
 export default Icontitle;
 
-const styles = StyleSheet.create({
+const stylesCreator=(colors:ThemeColors)=> StyleSheet.create({
   iconContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 20,
-    backgroundColor: '#ffffff',
+    backgroundColor:colors.background,
 
-    shadowColor: '#000', // subtle shadow
+    shadowColor: colors.text, // subtle shadow
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3,
@@ -61,9 +64,10 @@ const styles = StyleSheet.create({
     height: 18,
     marginRight: 8,
     resizeMode: 'contain',
+    tintColor:colors.text
   },
   iconText: {
-    color: '#0c0c0cff',
+    color: colors.overlay,
     fontSize: RFValue(14),
     fontStyle: 'italic',
     fontWeight: '300', // thin font

@@ -7,19 +7,22 @@ import Day from '../atoms/Day';
 import { useTodos } from '../../state/todos';
 import { Pressable } from 'react-native';
 import { navigate } from '../../navigation/Navigationutils';
+import { ThemeColors } from '../../constant/theme';
+import { useThemedStyles } from '../../utils/useThemedStyles';
 
 interface ListItemProps {
-  item: Item;
+  item: Item & {due_date?:string};
 }
 
 const ListItem: React.FC<ListItemProps> = ({
-  item: { id, name, iscompleted, description, dueDate, category },
+  item: { id, name, iscompleted, description, dueDate, category ,due_date},
 }) => {
   const { markStatusChange } = useTodos();
 
   const handlePress = async () => {
     await markStatusChange(id, !iscompleted);
   };
+  const styles=useThemedStyles(stylesCreator)
 
   return (
     <Pressable
@@ -31,7 +34,7 @@ const ListItem: React.FC<ListItemProps> = ({
             name,
             iscompleted,
             description,
-            dueDate,
+            dueDate:due_date ?? dueDate,
             category,
           });
         } catch (error) {
@@ -90,7 +93,7 @@ const ListItem: React.FC<ListItemProps> = ({
 
 export default ListItem;
 
-const styles = StyleSheet.create({
+const stylesCreator=(colors:ThemeColors)=> StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -98,10 +101,10 @@ const styles = StyleSheet.create({
     padding: RFValue(10),
     marginVertical: RFValue(6),
     borderRadius: RFValue(12),
-    backgroundColor: '#fff',
+    backgroundColor:colors.background,
 
     // shadow iOS
-    shadowColor: '#000',
+    shadowColor: colors.border,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3,
@@ -120,7 +123,7 @@ const styles = StyleSheet.create({
   taskName: {
     fontSize: RFValue(14),
     fontWeight: '600',
-    color: '#000',
+    color:colors.text,
   },
   bottomRow: {
     flexDirection: 'row',
@@ -129,7 +132,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: RFValue(10),
-    color: '#666',
+    color:colors.label,
     flex: 1,
   },
 });

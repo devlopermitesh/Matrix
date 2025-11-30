@@ -22,7 +22,6 @@ export const useTodos = create<TodosState>((set, get) => ({
 
   setData: async () => {
     const response = await dbInstance.getTodos();
-    console.log('Response', response);
     // Dynamically group by category
     const groupedTodos = Object.keys(Categories)
       .filter(key => isNaN(Number(key))) // sirf string keys
@@ -63,8 +62,12 @@ export const useTodos = create<TodosState>((set, get) => ({
     }
   },
   deleteTodo: async (id: string) => {
+    
     await dbInstance.deleteTodo(id);
     await get().setData();
+    
+    // small delay to allow native module to flush
+    await new Promise(res => setTimeout(res, 50));
     await trigger.deletenotify(id);
   },
 }));

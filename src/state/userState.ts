@@ -24,7 +24,7 @@ const useAccount = create<useAccountProps>()(
       user: null,
       theme: 'Light',
       NotificationOn: true,
-      firstVisit: false,
+      firstVisit: true,
 
       updateProfile: (data: User) => {
         set(state => ({
@@ -40,7 +40,7 @@ const useAccount = create<useAccountProps>()(
 
       visited: () => {
         set(() => ({
-          firstVisit: true,
+          firstVisit: false,
         }));
       },
 

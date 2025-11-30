@@ -1,8 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
 import Icontitle from '../../../../src/components/atoms/Icontitle';
 import { IconThemeType } from '../../../../src/data/constant';
-
+import { render } from '../../../../src/testUtils/test-utils';
 describe('Icontitle Component', () => {
   it('renders with bell icon', () => {
     const { getByText, getByRole } = render(

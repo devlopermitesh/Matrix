@@ -21,8 +21,6 @@
     "*.{json,css,md}": "prettier --write"
   },
   "dependencies": {
-    "@dicebear/collection": "^9.2.4",
-    "@dicebear/core": "^9.2.4",
     "@notifee/react-native": "^9.1.8",
     "@react-native/new-app-screen": "0.80.1",
     "@react-navigation/elements": "^2.6.4",

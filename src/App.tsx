@@ -5,6 +5,8 @@
  * @format
  */
 
+import notifee, { EventType } from '@notifee/react-native';
+
 import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import Routes from './navigation/router';
 import {
@@ -13,6 +15,8 @@ import {
 } from './notification/notificationPermission';
 import { setCategories } from './notification/notitificationintial';
 import { useEffect } from 'react';
+import { navigate } from './navigation/Navigationutils';
+import { ThemeProvider } from './utils/ThemeContext';
 
 function App() {
   const persmissionChecks = async () => {
@@ -27,10 +31,21 @@ function App() {
       await persmissionChecks();
     })();
   }, []);
+  useEffect(() => {
+  const unsubscribe = notifee.onForegroundEvent(({ type }) => {
+    if (type === EventType.ACTION_PRESS) {
+      navigate('Home')
+    }
+  });
+  return () => unsubscribe();
+}, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar />
+          <ThemeProvider>
       <Routes />
+          </ThemeProvider>
     </SafeAreaView>
   );
 }

@@ -1,5 +1,5 @@
 import { TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import ApprenceItem from '../moleculers/ApprenceItem';
 import Icontitle from '../atoms/Icontitle';
 import { AppranceCollectionData, ButtonThemeType } from '../../data/constant';
@@ -7,10 +7,19 @@ import DarkLightToggle from '../atoms/DarkLightToggle';
 import SmoothToggle from '../atoms/NormalToggle';
 import Icon from '../atoms/Icon';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useTheme } from '../../utils/ThemeContext';
+import useAccount from '../../state/userState';
+
 
 const AppranceCollection = () => {
-  const [isDark, setisDark] = useState(false);
-  const [isOn, setIsOn] = useState(true);
+  
+  const { isDark, toggleTheme } = useTheme();
+  const {toggleNotification,NotificationOn}=useAccount()
+
+
+
+
+
   const getButton = (ButtonType: ButtonThemeType) => {
     switch (ButtonType) {
       case 'theme':
@@ -18,7 +27,8 @@ const AppranceCollection = () => {
           <DarkLightToggle
             testId="dark-light-toggle"
             isDark={isDark}
-            onPress={() => setisDark(prev => !prev)}
+            onPress={toggleTheme}
+
           />
         );
       case 'Normal':
@@ -26,8 +36,8 @@ const AppranceCollection = () => {
           <SmoothToggle
             testId="normal-toggle"
             size="small"
-            isOn={isOn}
-            onPress={() => setIsOn(pre => !pre)}
+            isOn={NotificationOn}
+            onPress={toggleNotification}
           />
         );
       case 'checkOut':
@@ -35,7 +45,7 @@ const AppranceCollection = () => {
           <TouchableOpacity testID="icon-right" onPress={() => {}}>
             <Icon
               size={RFValue(16)}
-              color="#000000"
+              color={isDark?"#ffffff":"#000000"}
               name="right"
               iconType="ant-design"
             />

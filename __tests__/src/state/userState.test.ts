@@ -15,7 +15,7 @@ describe('Account state', () => {
     accountStore.setState({
       user: null,
       theme: 'Light',
-      firstVisit: false,
+      firstVisit: true,
       NotificationOn: true,
     });
   });
@@ -54,6 +54,6 @@ describe('Account state', () => {
       useAccount.getState().visited();
     });
 
-    expect(useAccount.getState().firstVisit).toBe(true);
+    expect(useAccount.getState().firstVisit).toBe(false);
   });
 });

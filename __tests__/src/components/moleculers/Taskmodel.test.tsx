@@ -1,7 +1,8 @@
-import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import TaskModal from '../../../../src/components/moleculers/Taskmodel';
 import { Categories, Item } from '../../../../src/data/constant';
 import { StyleSheet } from 'react-native';
+import { render,fireEvent,waitFor } from '../../../../src/testUtils/test-utils';
+
 
 jest.mock('react-native-calendars', () => {
   return {

@@ -11,12 +11,13 @@ jest.mock('../../../../src/state/newsql', () => {
   };
 });
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { Alert } from 'react-native';
 import ListItem from '../../../../src/components/moleculers/ListItem';
 import { useTodos } from '../../../../src/state/todos';
 import { navigate } from '../../../../src/navigation/Navigationutils';
 import { Categories, Item } from '../../../../src/data/constant';
+import { render,waitFor,fireEvent } from '../../../../src/testUtils/test-utils';
+
 
 // Mock navigation - simplified without requireActual
 jest.mock('@react-navigation/native', () => ({

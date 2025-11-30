@@ -1,17 +1,16 @@
 // __tests__/Profile.test.tsx
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
 import Profile from '../../../src/screens/Profile';
+import { render,fireEvent } from '../../../src/testUtils/test-utils';
 
 // Mock useAccount hook
 jest.mock('../../../src/state/userState', () => ({
   __esModule: true,
-  default: () => ({
-    user: {
-      name: 'Test User',
-      email: 'test@example.com',
-    },
-  }),
+  default: jest.fn(() => ({
+    theme: "Light",
+    updateTheme: jest.fn(),
+    firstVisit: false,
+  })),
 }));
 
 // Mock goBack function

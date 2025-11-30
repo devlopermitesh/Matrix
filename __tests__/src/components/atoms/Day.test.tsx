@@ -1,7 +1,6 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
 import Day from '../../../../src/components/atoms/Day';
-
+import { render } from '../../../../src/testUtils/test-utils';
 jest.mock('dayjs', () => {
   const actualDayjs = jest.requireActual('dayjs');
   const mockFromNow = jest.fn(() => '2 hours ago');

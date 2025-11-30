@@ -29,7 +29,6 @@ export const powerOptimizeCheck = async () => {
         },
         {
           text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
       ],

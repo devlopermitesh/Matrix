@@ -1,8 +1,7 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
 import Header from '../../../../src/components/organism/Header';
 import { navigate } from '../../../../src/navigation/Navigationutils';
-
+import { render ,fireEvent} from '../../../../src/testUtils/test-utils';
 // Mock the navigation utility
 jest.mock('../../../../src/navigation/Navigationutils', () => ({
   navigate: jest.fn(),

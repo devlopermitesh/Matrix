@@ -2,6 +2,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import ListItem from '../moleculers/ListItem';
 import { Colors, Item } from '../../data/constant';
+import { useThemedStyles } from '../../utils/useThemedStyles';
+import { ThemeColors } from '../../constant/theme';
 
 interface ItemContainerProps {
   items: Item[];
@@ -14,6 +16,7 @@ const ItemContainer: React.FC<ItemContainerProps> = ({
   title,
   category,
 }) => {
+  const styles=useThemedStyles(stylesCreator)
   return (
     <View style={[styles.container, { borderLeftColor: Colors[category] }]}>
       <Text style={styles.header}>{title}</Text>
@@ -33,15 +36,15 @@ const ItemContainer: React.FC<ItemContainerProps> = ({
 
 export default ItemContainer;
 
-const styles = StyleSheet.create({
+const stylesCreator =(colors:ThemeColors)=> StyleSheet.create({
   container: {
     flexDirection: 'column',
     borderRadius: 12,
     padding: 10,
     marginVertical: 10,
-    backgroundColor: '#f9f9f9',
+    backgroundColor:colors.boxbackground,
     borderLeftWidth: 6,
-    shadowColor: '#000',
+    shadowColor:colors.text,
     shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 2,
@@ -49,20 +52,20 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 16,
     fontWeight: '800',
-    color: '#000', // Dark black for title
+    color:colors.text, // Dark black for title
   },
   emptyView: {
     width: '100%',
     paddingVertical: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
     borderRadius: 8,
     marginVertical: 8,
   },
   emptyText: {
     fontStyle: 'italic',
-    color: '#555',
+    color: colors.emptytext,
     fontSize: 16,
   },
 });

@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
 import SmoothToggle from '../../../../src/components/atoms/NormalToggle';
 import { Animated } from 'react-native';
-
+import { render,fireEvent } from '../../../../src/testUtils/test-utils';
 // Suppress act() warnings for animations
 const originalConsoleError = console.error;
 beforeAll(() => {

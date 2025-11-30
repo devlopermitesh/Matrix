@@ -1,6 +1,6 @@
-import { render } from '@testing-library/react-native';
 import CustomeSafeAreaView from '../../../../src/components/atoms/CustomeSafeAreaView';
 import { Text } from 'react-native';
+import { render } from '../../../../src/testUtils/test-utils';
 
 describe('CustomeSafeAreaView', () => {
   it('Should render the children in SafeArevew', () => {
