@@ -34,7 +34,7 @@ const ListItem: React.FC<ListItemProps> = ({
             name,
             iscompleted,
             description,
-            dueDate:due_date,
+            dueDate:due_date ?? dueDate,
             category,
           });
         } catch (error) {

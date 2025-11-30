@@ -1,9 +1,10 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import { fireEvent, waitFor } from '@testing-library/react-native';
 import TaskDetail from '../../../src/screens/TaskDetails';
 import { useTodos } from '../../../src/state/todos';
 import { navigate } from '../../../src/navigation/Navigationutils';
 import { Categories } from '../../../src/data/constant';
+import { render } from '../../../src/testUtils/test-utils';
 jest.mock('../../../src/state/newsql', () => {
   return {
     dbInstance: {

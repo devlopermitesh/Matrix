@@ -1,5 +1,6 @@
-import { fireEvent, render } from '@testing-library/react-native';
+import { fireEvent} from '@testing-library/react-native';
 import DarkLightToggle from '../../../../src/components/atoms/DarkLightToggle';
+import { render } from '../../../../src/testUtils/test-utils';
 
 describe('Dark Light Toggle Button test', () => {
   it('if IsDark true then render moon', () => {

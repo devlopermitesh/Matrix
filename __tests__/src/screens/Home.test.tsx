@@ -1,13 +1,12 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import Home from '../../../src/screens/Home';
 import { useTodos } from '../../../src/state/todos';
 import { CategoryTitles } from '../../../src/data/constant';
+import { render,fireEvent,waitFor } from '../../../src/testUtils/test-utils';
 
-// --- MOCKS ---
+// --- MOCKS --- 
 const mockNewTodo = jest.fn();
 const mockSetData = jest.fn();
-
 jest.mock('../../../src/state/todos', () => ({
   useTodos: jest.fn(),
 }));
@@ -16,6 +15,18 @@ jest.mock('../../../src/navigation/Navigationutils', () => ({
   navigate: jest.fn(),
   goBack: jest.fn(),
 }));
+
+// Mock useAccount hook
+jest.mock('../../../src/state/userState', () => ({
+  __esModule: true,
+  default: jest.fn(() => ({
+    theme: "Light",
+    updateTheme: jest.fn(),
+    firstVisit: false,
+  })),
+}));
+
+
 
 // Mock TaskModal as a button that triggers props.onSave
 jest.mock('../../../src/components/moleculers/Taskmodel', () => {

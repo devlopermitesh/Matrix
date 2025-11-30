@@ -1,12 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 jest.mock('react-native/src/private/animated/NativeAnimatedHelper.js');
-import {
-  fireEvent,
-  render,
-  waitFor,
-  within,
-} from '@testing-library/react-native';
+import { render,fireEvent } from '../../../../src/testUtils/test-utils';
 import AppranceCollection from '../../../../src/components/organism/AppranceCollection';
 import { act } from 'react';
 // Mock ApprenceItem to include the title in testIDs

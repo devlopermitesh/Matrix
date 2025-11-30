@@ -1,8 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
 import ItemContainer from '../../../../src/components/organism/ItemContainer';
 import { Categories, Item } from '../../../../src/data/constant';
-
+import { render } from '../../../../src/testUtils/test-utils';
 // Mock ListItem with just a View containing the item data as props
 jest.mock('../../../../src/components/moleculers/ListItem', () => {
   return ({ item }: { item: Item }) => {

@@ -1,7 +1,6 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
 import PlusButton from '../../../../src/components/atoms/PlusButton';
-
+import { render,fireEvent } from '../../../../src/testUtils/test-utils';
 describe('PlusButton Component', () => {
   it('renders correctly with default styles', () => {
     const { getByTestId } = render(

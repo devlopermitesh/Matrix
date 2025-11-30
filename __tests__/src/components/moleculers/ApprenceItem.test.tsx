@@ -1,8 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
 import ApprenceItem from '../../../../src/components/moleculers/ApprenceItem';
 import { Text } from 'react-native';
-
+import { render } from '../../../../src/testUtils/test-utils';
 describe('ApprenceItem Component', () => {
   it('renders title correctly', () => {
     const { getByText } = render(

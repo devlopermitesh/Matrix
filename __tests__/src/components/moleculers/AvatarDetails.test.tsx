@@ -1,15 +1,13 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
 import AvatarDetails from '../../../../src/components/moleculers/AvatarDetails';
-
+import { render } from '../../../../src/testUtils/test-utils';
 describe('AvatarDetails Component', () => {
   const user = {
     username: 'JohnDoe',
     punchLine: 'Coding is life',
   };
-
   it('renders correctly with a user infor', () => {
-    const { getByText } = render(<AvatarDetails user={user} />);
+    const { getByText } = render(<AvatarDetails user={user}  onPress={()=>{}}/>);
 
     // Username text
     expect(getByText(user.username)).toBeTruthy();
@@ -19,7 +17,7 @@ describe('AvatarDetails Component', () => {
   });
 
   it('renders default values when user is null', () => {
-    const { getByText } = render(<AvatarDetails user={null} />);
+    const { getByText } = render(<AvatarDetails user={null} onPress={()=>{}}/>);
 
     // Default username
     expect(getByText('Guest User')).toBeTruthy();
