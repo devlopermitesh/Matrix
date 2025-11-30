@@ -21,8 +21,6 @@
     "*.{json,css,md}": "prettier --write"
   },
   "dependencies": {
-    "@dicebear/collection": "^9.2.4",
-    "@dicebear/core": "^9.2.4",
     "@notifee/react-native": "^9.1.8",
     "@react-native/new-app-screen": "0.80.1",
     "@react-navigation/elements": "^2.6.4",
@@ -61,7 +59,6 @@
     "@react-native/metro-config": "^0.76.0",
     "@react-native/typescript-config": "0.80.1",
     "@testing-library/jest-native": "^5.4.3",
-    "@testing-library/react-hooks": "^8.0.1",
     "@types/detox": "^17.14.3",
     "@types/jest": "^29.5.14",
     "@types/react": "^19.1.0",
